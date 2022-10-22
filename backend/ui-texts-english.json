@@ -1,0 +1,13 @@
+{
+	"applicationName": "Stock Predictor",
+	"confirmationCodeMailSubject": "{0} Confirmation Code",
+	"confirmationCodeMailContent": "Dear {0}, <br/><br/>Thank you for registering with {1}. <br/><br/>Your confirmation code is: <br/><br/><h3>{2}</h3><br/>Please enter this code in the confirmation code field in the email confirmation form. <br/><br/>Thank you, <br/>{1} <br/>",
+	"registrationSuccessful": "Please check your email for verification.",
+	"userRemoved": "User removed successfully.",
+	"emailAlreadyExists": "This email already exists.",
+	"invalidConfirmationCode": "Invalid confirmation code.",
+	"invalidEmailOrPassword": "Invalid email or password.",
+	"invalidEmail": "Invalid email.",
+	"invalidJWTToken": "Invalid token, relogin required.",
+	"unknownError": "An unknown error occurred."
+}

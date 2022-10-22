@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "fetch-lean": "^1.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "tamed-mailer": "^1.0.2",
+    "tick-log": "^1.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.2.1"
+  }
+}

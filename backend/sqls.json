@@ -1,0 +1,10 @@
+{
+	"selectCustomer": "select * from Customers.Customers where email = $1",
+	"insertCustomer": "insert into Customers.Customers (name, email, password, state) values ($1, $2, $3, 'a')",
+	"deleteCustomer": "delete from Customers.Customers where email = $1",
+	"insertCustomerRegistrations": "insert into Customers.Customer_Registrations(comfirmation_code, name, email, password) values ($1, $2, $3, $4)",
+	"selectCustomerRegistrations": "select * from Customers.Customer_Registrations where email = $1 and comfirmation_code = $2",
+	"deleteCustomerRegistrations": "delete from Customers.Customer_Registrations where email = $1",
+	"deleteExpiredCustomerRegistrations": "delete from Customers.Customer_Registrations where created_at < now() - interval '1 day'"
+}
+
