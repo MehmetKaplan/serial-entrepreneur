@@ -18,6 +18,12 @@ from
 
 drop table serialentrepreneur.subscriptions;
 
+revoke all on serialentrepreneur.user_password_reset
+from
+	serialentrepreneurapp;
+
+drop table serialentrepreneur.user_password_reset;
+
 revoke all on serialentrepreneur.users
 from
 	serialentrepreneurapp;

@@ -283,3 +283,61 @@ test('Password change', async () => {
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);
 });
+
+test('Password change - invalid email', async () => {
+	let now = Date.now();
+	let email = `${now}@yopmail.com`;
+	let password = `${now}`;
+	let newPassword = `${now}-NEW`;
+	let response1 = await userReqHandlers.registerUserStep1(`${now}`, email, password);
+	tickLog.info(`Confirmation code: ${response1}`);
+	let response2 = await userReqHandlers.registerUserStep2(email, response1);
+	let response3 = await userReqHandlers.loginUserViaMail(email, password);
+	tickLog.info(`JWT token: ${response3}`);
+	expect(response3).toBeDefined();
+	expect(response3.length).toBeGreaterThan(0);
+	let decoded = userReqHandlers.jwtDecode(response3);
+	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
+	expect(decoded).toBeDefined();
+	expect(decoded.email).toEqual(email);
+	try {
+		await userReqHandlers.changePassword(`${email}-SOME-GARBAGE-DATA`, password, newPassword);
+		expect(true).toEqual(false); // should not reach this line
+	} catch (error) {
+		expect(error).toEqual(uiTexts.invalidEmail);
+	}
+});
+
+test('Password reset', async () => {
+	let now = Date.now();
+	let email = `${now}@yopmail.com`;
+	let password = `${now}`;
+	let newPassword = `${now}-NEW`;
+	let response1 = await userReqHandlers.registerUserStep1(`${now}`, email, password);
+	tickLog.info(`Confirmation code: ${response1}`);
+	let response2 = await userReqHandlers.registerUserStep2(email, response1);
+	let response3 = await userReqHandlers.loginUserViaMail(email, password);
+	tickLog.info(`JWT token: ${response3}`);
+	expect(response3).toBeDefined();
+	expect(response3.length).toBeGreaterThan(0);
+	let decoded = userReqHandlers.jwtDecode(response3);
+	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
+	expect(decoded).toBeDefined();
+	expect(decoded.email).toEqual(email);
+	let response4 = await userReqHandlers.resetPasswordStep1(email);
+	tickLog.info(`Reset password step 1 confirmation code: ${JSON.stringify(response4)}`);
+	expect(response4).toBeDefined();
+	expect(response4.length).toEqual(7);
+	let response5 = await userReqHandlers.resetPasswordStep2(email, response4, newPassword);
+	tickLog.info(`Reset password step 2 response: ${JSON.stringify(response5)}`);
+	expect(response5).toBeDefined();
+	expect(response5).toEqual(uiTexts.passwordChanged);
+	let response6 = await userReqHandlers.loginUserViaMail(email, newPassword);
+	tickLog.info(`New JWT token: ${JSON.stringify(response6)}`);
+	expect(response6).toBeDefined();
+	expect(response6.length).toBeGreaterThan(0);
+	let decoded2 = userReqHandlers.jwtDecode(response6);
+	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
+	expect(decoded2).toBeDefined();
+	expect(decoded2.email).toEqual(email);
+});

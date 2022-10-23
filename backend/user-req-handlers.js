@@ -60,6 +60,13 @@ const hashPassword = (plaintextPassword) => new Promise(async (resolve, reject) 
 	}
 });
 
+const generateConfirmationCode = () => {
+	let l_randomNumber1 = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+	let l_randomNumber2 = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+	return `${l_randomNumber1}-${l_randomNumber2}`;
+}
+
+
 const registerUserStep1 = (p_name, p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
@@ -67,18 +74,16 @@ const registerUserStep1 = (p_name, p_email, p_password) => new Promise(async (re
 		if (l_retval.rows.length > 0) {
 			return reject(uiTexts.emailAlreadyExists);
 		};
-		let l_randomNumber1 = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-		let l_randomNumber2 = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-		let l_code = `${l_randomNumber1}-${l_randomNumber2}`;
+		let l_confirmationCode = generateConfirmationCode();
 		let l_hashedPassword = await hashPassword(p_password);
-		await runSQL(sqls.insertCustomerRegistrations, [l_code, p_name, p_email, l_hashedPassword]);
+		await runSQL(sqls.insertCustomerRegistrations, [l_confirmationCode, p_name, p_email, l_hashedPassword]);
 		let l_mailBody = uiTexts.confirmationCodeMailContent
 			.replace(/\{0\}/g, p_name)
 			.replace(/\{1\}/g, uiTexts.applicationName)
-			.replace(/\{2\}/g, l_code);
+			.replace(/\{2\}/g, l_confirmationCode);
 		let l_subject = uiTexts.confirmationCodeMailSubject.replace(/\{0\}/g, uiTexts.applicationName);
 		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials, p_email, l_subject, l_mailBody, 'html');
-		return resolve(l_code);
+		return resolve(l_confirmationCode);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function registerUserStep1 failed. Error: ${JSON.stringify(error)}`);
 		return reject(uiTexts.unknownError);
@@ -189,6 +194,56 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 	}
 });
 
+const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
+	try {
+		let l_user;
+		l_user = await runSQL(sqls.selectCustomer, [p_email]);
+		/* istanbul ignore if */
+		if (l_user.rows.length === 0) {
+			return reject(uiTexts.invalidEmail);
+		};
+		let l_confirmationCode = generateConfirmationCode();
+		await runSQL(sqls.insertCustomerPasswordReset, [p_email, l_confirmationCode]);
+		await runSQL(sqls.deleteExpiredCustomerPasswordResets, []);
+		let l_subject = uiTexts.resetPasswordMailSubject
+			.replace(/\{0\}/g, l_user.rows[0].name);
+		let l_mailBody = uiTexts.passwordResetMailBody
+			.replace(/\{0\}/g, l_user.rows[0].name)
+			.replace(/\{1\}/g, uiTexts.applicationName)
+			.replace(/\{2\}/g, l_confirmationCode);
+		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials,
+			p_email, l_subject, l_mailBody, 'html');
+		return resolve(l_confirmationCode);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
+
+const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new Promise(async (resolve, reject) => {
+	try {
+		let l_user;
+		l_user = await runSQL(sqls.selectCustomer, [p_email]);
+		/* istanbul ignore if */
+		if (l_user.rows.length === 0) {
+			return reject(uiTexts.invalidEmail);
+		};
+		let l_passwordReset;
+		l_passwordReset = await runSQL(sqls.selectCustomerPasswordReset, [p_email, p_confirmationCode]);
+		/* istanbul ignore if */
+		if (l_passwordReset.rows.length === 0) {
+			return reject(uiTexts.invalidConfirmationCode);
+		};
+		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
+		await runSQL(sqls.updateCustomerPassword, [l_newHashedPassword, p_email]);
+		await runSQL(sqls.deleteCustomerPasswordReset, [p_email, p_confirmationCode]);
+		return resolve(uiTexts.passwordChanged);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});		
+
 module.exports = {
 	init: init,
 	registerUserStep1: registerUserStep1,
@@ -199,6 +254,8 @@ module.exports = {
 	loginUserViaToken: loginUserViaToken,
 	removeUser: removeUser,
 	changePassword: changePassword,
+	resetPasswordStep1: resetPasswordStep1,
+	resetPasswordStep2: resetPasswordStep2,
 	exportedForTesting: {
 		hashPassword: hashPassword
 	}
