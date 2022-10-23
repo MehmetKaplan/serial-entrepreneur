@@ -3,18 +3,30 @@ const jwt = require('jsonwebtoken');
 
 const tickLog = require('tick-log');
 
-const runSQL = require('../db-pg').runSQL;
-const { sendMailviaOffice } = require('tamed-mailer');
-
-const jwtKeys = require('../keys/jwt.json');
-const bcryptKeys = require('../keys/bcrypt.json');
+const { connect, runSQL } = require('tamed-pg');
+const { tamedMailer } = require('tamed-mailer');
 
 const sqls = require('./sqls.json');
 const uiTexts = require('./ui-texts-english.json');
 
+let keys = {};
+
+const init = (p_params) => new Promise(async (resolve, reject) => {
+	try {
+		keys.jwtKeys = p_params.jwtKeys;
+		keys.bcryptKeys = p_params.bcryptKeys;
+		keys.emailKeys = p_params.emailKeys;
+		await connect(p_params.pgKeys);
+		return resolve(true);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function init failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
+
 const jwtDecode = (p_token) => {
 	try {
-		let decoded = jwt.verify(p_token, jwtKeys.secret);
+		let decoded = jwt.verify(p_token, keys.jwtKeys.secret);
 		return decoded;
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function jwtDecode failed. Error: ${JSON.stringify(error)}`);
@@ -24,7 +36,7 @@ const jwtDecode = (p_token) => {
 
 const jwtEncode = (p_data) => {
 	try {
-		let newToken = jwt.sign(p_data, jwtKeys.secret, { expiresIn: jwtKeys.jwt_expiresIn });
+		let newToken = jwt.sign(p_data, keys.jwtKeys.secret, { expiresIn: keys.jwtKeys.jwt_expiresIn });
 		return newToken;
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function jwtEncode failed. Error: ${JSON.stringify(error)}`);
@@ -34,7 +46,7 @@ const jwtEncode = (p_data) => {
 
 const hashPassword = (plaintextPassword) => new Promise(async (resolve, reject) => {
 	try {
-		bcrypt.genSalt(bcryptKeys.saltRounds, function (err, salt) {
+		bcrypt.genSalt(keys.bcryptKeys.saltRounds, function (err, salt) {
 			/* istanbul ignore if */
 			if (err) return reject(err);
 			bcrypt.hash(plaintextPassword, salt, function (err, hash) {
@@ -64,7 +76,8 @@ const registerUserStep1 = (p_name, p_email, p_password) => new Promise(async (re
 			.replace(/\{0\}/g, p_name)
 			.replace(/\{1\}/g, uiTexts.applicationName)
 			.replace(/\{2\}/g, l_code);
-		await sendMailviaOffice([p_email], uiTexts.confirmationCodeMailSubject.replace(/\{0\}/g, uiTexts.applicationName), l_mailBody, 'html');
+		let l_subject = uiTexts.confirmationCodeMailSubject.replace(/\{0\}/g, uiTexts.applicationName);
+		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials, p_email, l_subject, l_mailBody, 'html');
 		return resolve(l_code);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function registerUserStep1 failed. Error: ${JSON.stringify(error)}`);
@@ -155,6 +168,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 });
 
 module.exports = {
+	init: init,
 	registerUserStep1: registerUserStep1,
 	registerUserStep2: registerUserStep2,
 	jwtEncode: jwtEncode,

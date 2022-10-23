@@ -2388,10 +2388,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-tamed-mailer@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/tamed-mailer/-/tamed-mailer-1.0.2.tgz#9f96b2ec2117aa7601e6451acbd03be6b5784b45"
-  integrity sha512-cxDTZXK/dyrCtVauGMzjgaO1Kgtuuai8Cw0h+CNEmhAIO+Q6v8s/cMeQJYL2YKq4VObMz8n08MuALZ4GrOfbIQ==
+tamed-mailer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tamed-mailer/-/tamed-mailer-1.1.0.tgz#e1b241bdf41e5afcb442b7c777c46a61319fe731"
+  integrity sha512-CanDfCAX1CeQmwR9XnmbpiCVSOoSjh/O8rDBJZHiqgxTRMcyiHjrj3JhFdtjcV+Qw75LJAn9+ws5DsMha7jYiw==
   dependencies:
     "@azure/msal-node" "^1.14.2"
     fetch-lean "^1.0.3"
