@@ -30,17 +30,10 @@ create table serialentrepreneur.users (
 	name varchar(100),
 	email varchar(200),
 	password varchar(200),
-	generated_at timestamp default current_timestamp,
-	deleted_at timestamp,
-	state char(1)
+	generated_at timestamp default current_timestamp
 );
 
 grant all on serialentrepreneur.users to serialentrepreneurapp;
-
-alter table
-	serialentrepreneur.users
-add
-	constraint cons_serialentrepreneur check (state in ('a', 'd'));
 
 create index users_idx1 on serialentrepreneur.users (email);
 
