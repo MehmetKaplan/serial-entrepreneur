@@ -1,3 +1,8 @@
+### Requirements
+
+1. An Ubuntu server with `bash` shell. (We can not provide this. :-) )
+2. A PostgresSQL database (the installation method is below, in the `1. Install DB below` section. )
+
 
 ### Setup
 
