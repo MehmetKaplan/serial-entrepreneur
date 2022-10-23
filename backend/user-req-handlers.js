@@ -167,6 +167,28 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 	}
 });
 
+const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(async (resolve, reject) => {
+	try {
+		let l_retval;
+		l_retval = await runSQL(sqls.selectCustomer, [p_email]);
+		/* istanbul ignore if */
+		if (l_retval.rows.length === 0) {
+			return reject(uiTexts.invalidEmail);
+		};
+		let l_hashedPassword = l_retval.rows[0].password;
+		let l_passwordMatch = await bcrypt.compare(p_oldPassword, l_hashedPassword);
+		if (!l_passwordMatch) {
+			return reject(uiTexts.invalidOldPassword);
+		};
+		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
+		await runSQL(sqls.updateCustomerPassword, [l_newHashedPassword, p_email]);
+		return resolve(uiTexts.passwordChanged);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
+
 module.exports = {
 	init: init,
 	registerUserStep1: registerUserStep1,
@@ -176,6 +198,7 @@ module.exports = {
 	loginUserViaMail: loginUserViaMail,
 	loginUserViaToken: loginUserViaToken,
 	removeUser: removeUser,
+	changePassword: changePassword,
 	exportedForTesting: {
 		hashPassword: hashPassword
 	}

@@ -9,5 +9,7 @@
 	"invalidEmailOrPassword": "Invalid email or password.",
 	"invalidEmail": "Invalid email.",
 	"invalidJWTToken": "Invalid token, relogin required.",
+	"invalidOldPassword": "Invalid old password.",
+	"passwordChanged": "Password changed successfully.",
 	"unknownError": "An unknown error occurred."
 }

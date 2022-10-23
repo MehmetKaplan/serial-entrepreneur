@@ -1,10 +1,19 @@
 {
 	"selectCustomer": "select * from serialentrepreneur.users where email = $1",
-	"insertCustomer": "insert into serialentrepreneur.users (name, email, password, state) values ($1, $2, $3, 'a')",
+	"insertCustomer": "insert into serialentrepreneur.users (name, email, password) values ($1, $2, $3)",
 	"deleteCustomer": "delete from serialentrepreneur.users where email = $1",
 	"insertCustomerRegistrations": "insert into serialentrepreneur.user_registrations(comfirmation_code, name, email, password) values ($1, $2, $3, $4)",
 	"selectCustomerRegistrations": "select * from serialentrepreneur.user_registrations where email = $1 and comfirmation_code = $2",
 	"deleteCustomerRegistrations": "delete from serialentrepreneur.user_registrations where email = $1",
-	"deleteExpiredCustomerRegistrations": "delete from serialentrepreneur.user_registrations where created_at < now() - interval '1 day'"
+	"deleteExpiredCustomerRegistrations": "delete from serialentrepreneur.user_registrations where created_at < now() - interval '1 day'",
+
+	"updateCustomerPassword": "update serialentrepreneur.users set password = $1 where email = $2",
+
+
+	"insertCustomerPasswordReset": "insert into serialentrepreneur.user_password_reset (reset_code, email) values ($1, $2)",
+	"selectCustomerPasswordReset": "select * from serialentrepreneur.user_password_reset where email = $1 and reset_code = $2",
+	"deleteCustomerPasswordReset": "delete from serialentrepreneur.user_password_reset where email = $1",
+	"deleteExpiredCustomerPasswordReset": "delete from serialentrepreneur.user_password_reset where created_at < now() - interval '1 day'"
+
 }
 
