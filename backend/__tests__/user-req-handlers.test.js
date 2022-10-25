@@ -1,6 +1,6 @@
-const userReqHandlers = require('../backend/user-req-handlers.js');
-const uiTexts = require('../backend/ui-texts-english.json');
-const sqls = require('../backend/sqls.json');
+const userReqHandlers = require('../user-req-handlers.js');
+const uiTexts = require('../ui-texts-english.json');
+const sqls = require('../sqls.json');
 
 const {runSQL, } = require('tamed-pg');
 
