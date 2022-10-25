@@ -1,6 +1,6 @@
 ## SETUP - DATABASE
 
-Following steps should lead you to prepare a proper DB setup for the `serial-entrepreneur`. This DB is to be used for 
+Following steps should lead you to prepare a proper DB setup for the `serial-entrepreneur`.
 
 #### (OPTIONAL-FRESH START) Uninstall postgresql if you need a fresh start
 
