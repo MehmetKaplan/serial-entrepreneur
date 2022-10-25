@@ -70,13 +70,13 @@ const generateConfirmationCode = () => {
 const registerUserStep1 = (p_name, p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectCustomer, [p_email]);
+		l_retval = await runSQL(sqls.selectUser, [p_email]);
 		if (l_retval.rows.length > 0) {
 			return reject(uiTexts.emailAlreadyExists);
 		};
 		let l_confirmationCode = generateConfirmationCode();
 		let l_hashedPassword = await hashPassword(p_password);
-		await runSQL(sqls.insertCustomerRegistrations, [l_confirmationCode, p_name, p_email, l_hashedPassword]);
+		await runSQL(sqls.insertUserRegistrations, [l_confirmationCode, p_name, p_email, l_hashedPassword]);
 		let l_mailBody = uiTexts.confirmationCodeMailContent
 			.replace(/\{0\}/g, p_name)
 			.replace(/\{1\}/g, uiTexts.applicationName)
@@ -102,15 +102,15 @@ const generateUserToken = (p_userid, p_email) => {
 const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectCustomerRegistrations, [p_email, p_confirmationCode]);
+		l_retval = await runSQL(sqls.selectUserRegistrations, [p_email, p_confirmationCode]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
-		await runSQL(sqls.insertCustomer, [l_retval.rows[0].name, p_email, l_retval.rows[0].password]);
-		await runSQL(sqls.deleteCustomerRegistrations, [p_email]);
-		runSQL(sqls.deleteExpiredCustomerRegistrations, []);
-		let l_insertedCustomersRow = await runSQL(sqls.selectCustomer, [p_email]);
-		let l_token = generateUserToken(l_insertedCustomersRow.rows[0].id, p_email);
+		await runSQL(sqls.insertUser, [l_retval.rows[0].name, p_email, l_retval.rows[0].password]);
+		await runSQL(sqls.deleteUserRegistrations, [p_email]);
+		runSQL(sqls.deleteExpiredUserRegistrations, []);
+		let l_insertedUsersRow = await runSQL(sqls.selectUser, [p_email]);
+		let l_token = generateUserToken(l_insertedUsersRow.rows[0].id, p_email);
 		return resolve(l_token);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function registerUserStep2 failed. Error: ${JSON.stringify(error)}`);
@@ -121,11 +121,11 @@ const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (re
 const removeUser = (p_email) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectCustomer, [p_email]);
+		l_retval = await runSQL(sqls.selectUser, [p_email]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
-		await runSQL(sqls.deleteCustomer, [p_email]);
+		await runSQL(sqls.deleteUser, [p_email]);
 		return resolve(uiTexts.userRemoved);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function removeUser failed. Error: ${JSON.stringify(error)}`);
@@ -136,7 +136,7 @@ const removeUser = (p_email) => new Promise(async (resolve, reject) => {
 const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectCustomer, [p_email]);
+		l_retval = await runSQL(sqls.selectUser, [p_email]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmailOrPassword);
 		};
@@ -159,7 +159,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 		if (!l_decodedToken) {
 			return reject(uiTexts.invalidJWTToken);
 		};
-		let l_retval = await runSQL(sqls.selectCustomer, [l_decodedToken.email]);
+		let l_retval = await runSQL(sqls.selectUser, [l_decodedToken.email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidJWTToken);
@@ -175,7 +175,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectCustomer, [p_email]);
+		l_retval = await runSQL(sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
@@ -186,7 +186,7 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 			return reject(uiTexts.invalidOldPassword);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(sqls.updateCustomerPassword, [l_newHashedPassword, p_email]);
+		await runSQL(sqls.updateUserPassword, [l_newHashedPassword, p_email]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`);
@@ -197,14 +197,14 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 	try {
 		let l_user;
-		l_user = await runSQL(sqls.selectCustomer, [p_email]);
+		l_user = await runSQL(sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_confirmationCode = generateConfirmationCode();
-		await runSQL(sqls.insertCustomerPasswordReset, [p_email, l_confirmationCode]);
-		await runSQL(sqls.deleteExpiredCustomerPasswordResets, []);
+		await runSQL(sqls.insertUserPasswordReset, [p_email, l_confirmationCode]);
+		await runSQL(sqls.deleteExpiredUserPasswordResets, []);
 		let l_subject = uiTexts.resetPasswordMailSubject
 			.replace(/\{0\}/g, l_user.rows[0].name);
 		let l_mailBody = uiTexts.passwordResetMailBody
@@ -223,26 +223,45 @@ const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
 		let l_user;
-		l_user = await runSQL(sqls.selectCustomer, [p_email]);
+		l_user = await runSQL(sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_passwordReset;
-		l_passwordReset = await runSQL(sqls.selectCustomerPasswordReset, [p_email, p_confirmationCode]);
+		l_passwordReset = await runSQL(sqls.selectUserPasswordReset, [p_email, p_confirmationCode]);
 		/* istanbul ignore if */
 		if (l_passwordReset.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(sqls.updateCustomerPassword, [l_newHashedPassword, p_email]);
-		await runSQL(sqls.deleteCustomerPasswordReset, [p_email, p_confirmationCode]);
+		await runSQL(sqls.updateUserPassword, [l_newHashedPassword, p_email]);
+		await runSQL(sqls.deleteUserPasswordReset, [p_email, p_confirmationCode]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
 		return reject(uiTexts.unknownError);
 	}
-});		
+});
+
+const updateUserData = (p_token, p_name) => new Promise(async (resolve, reject) => {
+	try {
+		let l_decodedToken = jwtDecode(p_token);
+		if (!l_decodedToken) {
+			return reject(uiTexts.invalidJWTToken);
+		};
+		let l_retval = await runSQL(sqls.selectUserFromId, [l_decodedToken.userId]);
+		/* istanbul ignore if */
+		if (l_retval.rows.length === 0) {
+			return reject(uiTexts.invalidJWTToken);
+		};
+		await runSQL(sqls.updateUserData, [l_decodedToken.userId, p_name]);
+		return resolve(uiTexts.userDataUpdated);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function updateUserData failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
 
 module.exports = {
 	init: init,
@@ -256,6 +275,7 @@ module.exports = {
 	changePassword: changePassword,
 	resetPasswordStep1: resetPasswordStep1,
 	resetPasswordStep2: resetPasswordStep2,
+	updateUserData: updateUserData,
 	exportedForTesting: {
 		hashPassword: hashPassword
 	}

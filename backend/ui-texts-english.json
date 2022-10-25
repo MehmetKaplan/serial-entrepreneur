@@ -13,5 +13,6 @@
 	"passwordChanged": "Password changed successfully.",
 	"resetPasswordMailSubject": "{0} Password Reset",
 	"passwordResetMailBody": "Dear {0}, <br/><br/>We have recieved a password reset request on behalf of you. <br><br> If that was not from you, you can safely ignore this mail. <br> <br> In order to reset your password, you can use the below code: <br/><br/><h3>{2}</h3><br/>Please enter this code in the confirmation code field in the password reset form. <br/><br/>Thank you, <br/>{1} <br/>",
+	"userDataUpdated": "User data updated successfully.",
 	"unknownError": "An unknown error occurred."
 }

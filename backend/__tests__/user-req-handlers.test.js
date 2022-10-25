@@ -58,7 +58,7 @@ test('Get confirmation code', async () => {
 
 
 
-test('Register customer', async () => {
+test('Register user', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let response1a = await userReqHandlers.registerUserStep1(`${now}`, email, `${now}`);
@@ -70,8 +70,8 @@ test('Register customer', async () => {
 	expect(response2.length).toBeGreaterThan(0);
 	let l_decodedToken = userReqHandlers.jwtDecode(response2);
 	expect(l_decodedToken).toHaveProperty("userId");
-	let response3 = await runSQL(sqls.selectCustomer, [`${email}`]);
-	tickLog.success(`Customer: ${JSON.stringify(response3.rows)}`);
+	let response3 = await runSQL(sqls.selectUser, [`${email}`]);
+	tickLog.success(`User: ${JSON.stringify(response3.rows)}`);
 	expect(response3.rows.length).toEqual(1);
 });
 
@@ -82,8 +82,8 @@ test('Invalid confirmation code', async () => {
 	tickLog.info(`Confirmation code: ${response1a}`);
 	let confirmationCode = `${response1a}-SOME-GARBAGE-DATA`;
 	expect(userReqHandlers.registerUserStep2(email, confirmationCode)).rejects.toEqual(uiTexts.invalidConfirmationCode);
-	let response3 = await runSQL(sqls.selectCustomer, [`${email}`]);
-	tickLog.success(`Customer: ${JSON.stringify(response3.rows)}`);
+	let response3 = await runSQL(sqls.selectUser, [`${email}`]);
+	tickLog.success(`User: ${JSON.stringify(response3.rows)}`);
 	expect(response3.rows.length).toEqual(0);
 });
 
@@ -115,7 +115,7 @@ test('JWT functions', async () => {
 	expect(decoded.userId).toEqual(`${now}`);
 });
 
-test('Successfull login customer', async () => {
+test('Successfull login user', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
@@ -165,7 +165,7 @@ test('Invalid email', async () => {
 	}
 });
 
-test('Successfull login customer via JWT', async () => {
+test('Successfull login user via JWT', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
@@ -203,7 +203,7 @@ test('Invalid JWT', async () => {
 	}
 });
 
-test('Remove customer', async () => {
+test('Remove user', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
@@ -224,7 +224,7 @@ test('Remove customer', async () => {
 	expect(response4).toEqual(uiTexts.userRemoved);
 });
 
-test('Remove customer - invalid email', async () => {
+test('Remove user - invalid email', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
@@ -341,3 +341,33 @@ test('Password reset', async () => {
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);
 });
+
+test('Update user data', async () => {
+	let now = Date.now();
+	let email = `${now}@yopmail.com`;
+	let password = `${now}`;
+	let response1 = await userReqHandlers.registerUserStep1(`${now}`, email, password);
+	tickLog.info(`Confirmation code: ${response1}`);
+	let response2 = await userReqHandlers.registerUserStep2(email, response1);
+	let response3 = await userReqHandlers.loginUserViaMail(email, password);
+	tickLog.info(`JWT token: ${response3}`);
+	expect(response3).toBeDefined();
+	expect(response3.length).toBeGreaterThan(0);
+	let decoded = userReqHandlers.jwtDecode(response3);
+	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
+	expect(decoded).toBeDefined();
+	expect(decoded.email).toEqual(email);
+	let response4 = await userReqHandlers.updateUserData(response3, 'new-name');
+	tickLog.info(`Update user data response: ${JSON.stringify(response4)}`);
+	expect(response4).toBeDefined();
+	expect(response4).toEqual(uiTexts.userDataUpdated);
+	let response5 = await userReqHandlers.loginUserViaMail(email, password);
+	tickLog.info(`New JWT token: ${JSON.stringify(response5)}`);
+	expect(response5).toBeDefined();
+	expect(response5.length).toBeGreaterThan(0);
+	let decoded2 = userReqHandlers.jwtDecode(response5);
+	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
+	expect(decoded2).toBeDefined();
+	expect(decoded2.email).toEqual(email);
+});
+

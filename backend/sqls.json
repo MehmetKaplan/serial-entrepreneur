@@ -1,14 +1,16 @@
 {
-	"selectCustomer": "select * from serialentrepreneur.users where email = $1",
-	"insertCustomer": "insert into serialentrepreneur.users (name, email, password) values ($1, $2, $3)",
-	"deleteCustomer": "delete from serialentrepreneur.users where email = $1",
-	"insertCustomerRegistrations": "insert into serialentrepreneur.user_registrations(confirmation_code, name, email, password) values ($1, $2, $3, $4)",
-	"selectCustomerRegistrations": "select * from serialentrepreneur.user_registrations where email = $1 and confirmation_code = $2",
-	"deleteCustomerRegistrations": "delete from serialentrepreneur.user_registrations where email = $1",
-	"deleteExpiredCustomerRegistrations": "delete from serialentrepreneur.user_registrations where created_at < now() - interval '1 day'",
-	"insertCustomerPasswordReset": "insert into serialentrepreneur.user_password_reset (email, confirmation_code) values ($1, $2)",
-	"selectCustomerPasswordReset": "select * from serialentrepreneur.user_password_reset where email = $1 and confirmation_code = $2",
-	"deleteCustomerPasswordReset": "delete from serialentrepreneur.user_password_reset where email = $1 and confirmation_code = $2",
-	"updateCustomerPassword": "update serialentrepreneur.users set password = $1 where email = $2",
-	"deleteExpiredCustomerPasswordResets": "delete from serialentrepreneur.user_password_reset where created_at < now() - interval '1 day'"
+	"selectUserFromId": "select * from serialentrepreneur.users where id = $1",
+	"selectUser": "select * from serialentrepreneur.users where email = $1",
+	"insertUser": "insert into serialentrepreneur.users (name, email, password) values ($1, $2, $3)",
+	"deleteUser": "delete from serialentrepreneur.users where email = $1",
+	"updateUserData": "update serialentrepreneur.users set name = $2 where id = $1",
+	"insertUserRegistrations": "insert into serialentrepreneur.user_registrations(confirmation_code, name, email, password) values ($1, $2, $3, $4)",
+	"selectUserRegistrations": "select * from serialentrepreneur.user_registrations where email = $1 and confirmation_code = $2",
+	"deleteUserRegistrations": "delete from serialentrepreneur.user_registrations where email = $1",
+	"deleteExpiredUserRegistrations": "delete from serialentrepreneur.user_registrations where created_at < now() - interval '1 day'",
+	"insertUserPasswordReset": "insert into serialentrepreneur.user_password_reset (email, confirmation_code) values ($1, $2)",
+	"selectUserPasswordReset": "select * from serialentrepreneur.user_password_reset where email = $1 and confirmation_code = $2",
+	"deleteUserPasswordReset": "delete from serialentrepreneur.user_password_reset where email = $1 and confirmation_code = $2",
+	"updateUserPassword": "update serialentrepreneur.users set password = $1 where email = $2",
+	"deleteExpiredUserPasswordResets": "delete from serialentrepreneur.user_password_reset where created_at < now() - interval '1 day'"
 }
