@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const tickLog = require('tick-log');
-const serialEntrepreneurBackendHandlers = require('serial-entrepreneur-backend-handlers');
+const serialEntrepreneurBackend = require('serial-entrepreneur-backend');
 
 const serverParameters = require('./server-parameters.js');
 
@@ -23,7 +23,7 @@ const callHandler = async (req, res, handler, paramsArr) => {
 		for (let i = 0; i < paramsArr.length; i++) {
 			paramsToSend.push(params[paramsArr[i]]);
 		}
-		await serialEntrepreneurBackendHandlers[handler](...paramsToSend);
+		await serialEntrepreneurBackend[handler](...paramsToSend);
 		res.status(200).send('OK');
 	} catch (error) {
 		res.status(500).send(error);
@@ -31,7 +31,7 @@ const callHandler = async (req, res, handler, paramsArr) => {
 }
 
 const startServer = async () => {
-	await serialEntrepreneurBackendHandlers.init(
+	await serialEntrepreneurBackend.init(
 		{
 			jwtKeys: serverParameters.jwtKeys,
 			bcryptKeys: serverParameters.bcryptKeys,
@@ -46,6 +46,7 @@ const startServer = async () => {
 	app.use(cors());
 	app.options('*', cors());
 
+	// curl http://localhost:3000/testhandler?email=email@email.com\&password=password123\&name=name123
 	app.get('/testhandler', async (req, res) => { callHandler(req, res, 'testHandler', ['name', 'email', 'password']); });
 	app.post('/registeruserstep1', async (req, res) => { callHandler(req, res, 'registerUserStep1', ['name', 'email', 'password']) });
 	app.post('/registeruserstep2', async (req, res) => { callHandler(req, res, 'registerUserStep2', ['email', 'confirmationCode']) });

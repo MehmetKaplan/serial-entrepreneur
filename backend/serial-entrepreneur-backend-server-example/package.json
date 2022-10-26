@@ -15,7 +15,7 @@
 		"https": "^1.0.0",
 		"morgan": "^1.10.0",
 		"path": "^0.12.7",
-		"serial-entrepreneur-backend": "^1.0.0",
+		"serial-entrepreneur-backend": "^1.0.1",
 		"tick-log": "^1.1.2"
 	},
 	"devDependencies": {}

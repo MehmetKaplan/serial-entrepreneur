@@ -903,10 +903,10 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serial-entrepreneur-backend@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.0.0.tgz#37a249a1d44127e49016dec113d471fdbb674a55"
-  integrity sha512-BfdIaqGd9qnjomm2WuPXYPW3OWtZIlkJ/anYv138i+TPQOjHhtVAqxDm9iGEzVvMIq1y8fHSmkd/dTP9ipaoFw==
+serial-entrepreneur-backend@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.0.1.tgz#8487057f2b46a7d8a073719e221480b17b610722"
+  integrity sha512-V5kL4LikwHKrK4+gfFS/6c0Rnjn5q1khdcR1P18NtJmkXYgg3xrXiAnjeSD7HKmUanS89nhxZy6ilpasvhbFKg==
   dependencies:
     bcrypt "^5.1.0"
     fetch-lean "^1.0.3"
