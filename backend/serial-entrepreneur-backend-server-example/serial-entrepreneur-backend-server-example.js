@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const tickLog = require('tick-log');
-const serialEntrepreneurBackendHandlers = require('../serial-entrepreneur-backend-handlers'); //MODIFYME
+const serialEntrepreneurBackendHandlers = require('serial-entrepreneur-backend-handlers');
 
 const serverParameters = require('./server-parameters.js');
 
