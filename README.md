@@ -1,6 +1,6 @@
 ### Requirements
 
-1. An Ubuntu server with `bash` shell. (We can not provide this. :-) )
+1. An Ubuntu server with `bash` shell.
 2. A PostgresSQL database (the installation method is below, in the `1. Install DB below` section. )
 
 
@@ -12,7 +12,15 @@ Serial Entrepreneur requires PostgreSQL. If not already installed you can refer 
 
 For the DB setup follow [the steps mentioned here](./database-setup/README.md).
 
+#### 2. Prepare Backend
 
+For setting up the fundementals of the backend follow [the steps mentioned here](./backend/README.md).
+
+#### 3. Prepare Frontend
+
+Serial Entrepreneur uses the magnificient `expo`, `react-native` and `react-native-web` for the frontend. If not already installed you can refer to https://docs.expo.dev/get-started/installation/ for installation.
+
+For setting up the fundementals of the frontend follow [the steps mentioned here](./frontend/README.md).
 
 ### License
 

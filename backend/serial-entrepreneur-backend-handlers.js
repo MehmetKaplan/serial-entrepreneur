@@ -24,6 +24,15 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 	}
 });
 
+const testHandler = (name, email, password) => new Promise(async (resolve, reject) => {
+	try {
+		tickLog.success(`testHandler: name: ${name}, email: ${email}, password: ${password}`);
+		return resolve();
+	} catch (error) {
+		return reject(error);
+	}
+});
+
 const jwtDecode = (p_token) => {
 	try {
 		let decoded = jwt.verify(p_token, keys.jwtKeys.secret);
@@ -265,10 +274,9 @@ const updateUserData = (p_token, p_name) => new Promise(async (resolve, reject) 
 
 module.exports = {
 	init: init,
+	testHandler: testHandler,
 	registerUserStep1: registerUserStep1,
 	registerUserStep2: registerUserStep2,
-	jwtEncode: jwtEncode,
-	jwtDecode: jwtDecode,
 	loginUserViaMail: loginUserViaMail,
 	loginUserViaToken: loginUserViaToken,
 	removeUser: removeUser,
@@ -277,6 +285,8 @@ module.exports = {
 	resetPasswordStep2: resetPasswordStep2,
 	updateUserData: updateUserData,
 	exportedForTesting: {
-		hashPassword: hashPassword
+		hashPassword: hashPassword,
+		jwtEncode: jwtEncode,
+		jwtDecode: jwtDecode
 	}
 }

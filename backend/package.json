@@ -1,4 +1,12 @@
 {
+	"name": "serial-entrepreneur-frontend",
+	"version": "1.0.0",
+	"description": "The backend functions to wire the serial-entrepreneur-backend APIs.",
+	"main": "index.js",
+	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/backend",
+	"author": "Mehmet Kaplan",
+	"license": "MIT",
+	"private": false,
 	"scripts": {
 		"test": "jest --runInBand --coverage --no-cache --forceExit "
 	},
