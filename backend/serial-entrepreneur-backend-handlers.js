@@ -9,7 +9,7 @@ const { tamedMailer } = require('tamed-mailer');
 const sqls = require('./sqls.json');
 const uiTexts = require('./ui-texts-english.json');
 
-let keys = {};
+const keys = {};
 
 const init = (p_params) => new Promise(async (resolve, reject) => {
 	try {
