@@ -18,9 +18,7 @@ For setting up the fundementals of the backend follow [the steps mentioned here]
 
 #### 3. Prepare Frontend
 
-Serial Entrepreneur uses the magnificient `expo`, `react-native` and `react-native-web` for the frontend. If not already installed you can refer to https://docs.expo.dev/get-started/installation/ for installation.
-
-For setting up the fundementals of the frontend follow [the steps mentioned here](./frontend/README.md).
+The frontend functions are handlers that can be embedded into react, react-native or expo applications. For setting up the fundementals of the frontend follow [the steps mentioned here](./frontend/README.md).
 
 ### License
 
