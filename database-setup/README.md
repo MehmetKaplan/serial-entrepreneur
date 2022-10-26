@@ -1,6 +1,6 @@
 ## SETUP - DATABASE
 
-This is the database setup of the [serial-entrepreneur](https://github.com/MehmetKaplan/serial-entrepreneur). Following steps should lead you to prepare a proper DB setup for the `serial-entrepreneur`.
+This is the database setup of the [serial-entrepreneur](https://github.com/MehmetKaplan/serial-entrepreneur). Following steps should lead you to prepare a proper DB setup.
 
 #### (OPTIONAL-FRESH START) Uninstall postgresql if you need a fresh start
 
