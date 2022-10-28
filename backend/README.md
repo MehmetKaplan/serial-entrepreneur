@@ -1,8 +1,8 @@
 ## SETUP - BACKEND
 
-This is the backend library of the `serial-entrepreneur` structure. For full setup please refer to https://github.com/MehmetKaplan/serial-entrepreneur where this backend structure is an integrated part with the database and frontend structures.
+This is the backend part of the serial-entrepreneur library. For full setup please refer to https://github.com/MehmetKaplan/serial-entrepreneur.
 
-Following steps should lead you to prepare a proper backend setup for the `serial-entrepreneur`. After this setup the backend fucntions can be used with `serial-entrepreneur-fronend` components out of the box, provided the steps are followed same way.
+Following steps should lead you to prepare a proper backend setup for the `serial-entrepreneur`. After this setup the backend functions can be used with `serial-entrepreneur-frontend` functions.
 
 A working example with below steps are here: https://github.com/mehmetkaplan/serial-entrepreneur/backend/serial-entrepreneur-backend-server-example
 
@@ -21,7 +21,7 @@ const serialEntrepreneurBackendHandlers = require('serial-entrepreneur-backend-h
 
 3. Initilize parameters (modify below object according to your environment)
 
-Name below example configuration as `server-parameters.js`. You should modify the credentials, secrets, etc, according to your environment.
+Name below example configuration as `server-parameters.js` and place it in the root directory of your express server. This file is to be `require`d by your express server. **You should modify the credentials, secrets, etc, according to your environment.**
 
 ```javascript
 module.exports = {
