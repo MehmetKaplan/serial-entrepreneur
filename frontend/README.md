@@ -2,7 +2,7 @@
 
 This is the frontend part of the `serial-entrepreneur` library. For full setup please refer to https://github.com/MehmetKaplan/serial-entrepreneur.
 
-Following steps should lead you to prepare a proper frontend setup for the `serial-entrepreneur`. This frontend components are designed to be pre-integrated with the backend functions out of the box, provided the setup steps are followed and a backend server, as shown in the backend library example, is run.
+Following steps should lead you to prepare a proper frontend setup for the `serial-entrepreneur`. This frontend functions are designed to be pre-integrated with the backend functions out of the box, provided the setup steps are followed and a backend server, as shown in the backend library example, is run.
 
 Add the pure JavaScript handlers into your frontend code. (*)
 
@@ -10,7 +10,7 @@ Add the pure JavaScript handlers into your frontend code. (*)
 yarn add serial-entrepreneur-frontend-handlers
 ```
 
-These pure JavaScript take the parameters and 2 functions, success and fail callbacks. With these callbacks you can use these functions within your frontend  button handlers.
+These pure JavaScript functions are designed to take the required parameters and additionally 2 functions, success and fail callbacks. With these callbacks you can use these functions within your frontend  button handlers.
 
 1. Implement the [Register User] flow
 
@@ -18,7 +18,7 @@ These pure JavaScript take the parameters and 2 functions, success and fail call
 	
 	1. Collect credentials and the minimum personal information from users.  
    
-		The `serial-entrepreneur` gives you only these essential 3 information out of the box. In order to add additional information you'll need to enrich the `Users` table in the database and add an initial page to collect those data. As a general principle, the less information you collect, the higher chance to comply with privacy expectetions of the users.
+		The `serial-entrepreneur` gives you only these essential 3 information out of the box. In order to add additional information you'll need to enrich the `users` table in the database and add an initial page to collect those data. As a general principle, the less information you collect, the higher chance to comply with the privacy laws.
    		- name
          - email
          - password
@@ -65,6 +65,7 @@ These pure JavaScript take the parameters and 2 functions, success and fail call
 	When a user succesfully registers, she/he should be able to login. For this we need to collect the email and password from the user and test if the credentials are correct. And if they are correct, we'll need to store the `JWT` so that next time login is seemless for the user.
 
 		You can use following functions in your [Login] page within the related submit button handler.
+		
 		```javascript
 		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
 		...
