@@ -28,6 +28,6 @@ The license is MIT and full text [here](LICENSE).
 
 * tick-log license [here](./OtherLicenses/tick-log.txt)
 * tamed-pg license [here](./OtherLicenses/tamed-pg.txt)
-* node-fetch license [here](./OtherLicenses/node-fetch.txt)
+* fetch-lean license [here](./OtherLicenses/fetch-lean.txt)
 * bcrypt license [here](./OtherLicenses/bcrypt.txt)
 * jsonwebtoken license [here](./OtherLicenses/jsonwebtoken.txt)
