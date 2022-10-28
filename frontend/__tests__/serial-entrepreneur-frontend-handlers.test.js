@@ -1,6 +1,7 @@
 
 // CHECK-BEFORE-BUILD 
 // Obtain following users from backend jest tests
+let getUserId = 8;
 const testUsers = [
 	{"name":"1666982550049-0","email":"1666982550049-0@yopmail.com","password":"1666982550049-0","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMxOCwiZW1haWwiOiIxNjY2OTgyNTUwMDQ5LTBAeW9wbWFpbC5jb20iLCJpYXQiOjE2NjY5ODI1NTAsImV4cCI6MTY2OTY2MDk1MH0.-WmCARmCmYTVyqn4lRG5yDRZpvzJvqJfrfVCK9FmjQ8"},
 	{"name":"1666982550049-1","email":"1666982550049-1@yopmail.com","password":"1666982550049-1","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMxOSwiZW1haWwiOiIxNjY2OTgyNTUwMDQ5LTFAeW9wbWFpbC5jb20iLCJpYXQiOjE2NjY5ODI1NTEsImV4cCI6MTY2OTY2MDk1MX0.2ZakL-E036y7jYrmDjS5033-gnGK2OAg6D8LAd8YBVs"},
@@ -24,7 +25,6 @@ const testUsers = [
 	{"name":"1666982550049-19","email":"1666982550049-19@yopmail.com","password":"1666982550049-19","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMzNywiZW1haWwiOiIxNjY2OTgyNTUwMDQ5LTE5QHlvcG1haWwuY29tIiwiaWF0IjoxNjY2OTgyNTY4LCJleHAiOjE2Njk2NjA5Njh9.SSyxogz1YrLqbooCF7hQFcyv0DwopKMwQL1Em8g3Zmw"},
 ];
 
-let getUserId = 5;
 
 
 const apiBackend = 'http://development.computatus.com:61976'; // modify this with your backend
@@ -39,7 +39,7 @@ beforeAll(async () => {
 });
 
 // jest.setTimeout(10000)
-/*
+
 test('Test testHandler', async () => {
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -108,7 +108,7 @@ test('removeUser', async () => {
 });
 
 test('loginuserviamail', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`loginuserviamail: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -122,7 +122,7 @@ test('loginuserviamail', async () => {
 });
 
 test('loginuserviatoken', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`loginuserviatoken: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -136,7 +136,7 @@ test('loginuserviatoken', async () => {
 });
 
 test('changepassword', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`changepassword: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -152,7 +152,7 @@ test('changepassword', async () => {
 
 
 test('resetPasswordStep1', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`resetPasswordStep1: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -166,7 +166,7 @@ test('resetPasswordStep1', async () => {
 });
 
 test('resetPasswordStep2', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`resetPasswordStep2: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -184,10 +184,8 @@ test('resetPasswordStep2', async () => {
 	}
 });
 
-*/
-
 test('updateuserdata', async () => {
-	let userIndex = getUserId++;
+	let userIndex = getUserId;
 	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
