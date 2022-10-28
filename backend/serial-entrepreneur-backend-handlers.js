@@ -159,7 +159,12 @@ const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, re
 			return reject(uiTexts.invalidEmailOrPassword);
 		};
 		let l_token = generateUserToken(l_retval.rows[0].id, p_email);
-		return resolve(l_token);
+		let l_retval2 = {
+			payload: {
+				token: l_token
+			}
+		}
+		return resolve(l_retval2);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function mailLogin failed. Error: ${JSON.stringify(error)}`);
 		return reject(uiTexts.unknownError);
@@ -178,7 +183,12 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 			return reject(uiTexts.invalidJWTToken);
 		};
 		let l_token = generateUserToken(l_retval.rows[0].id, l_decodedToken.email);
-		return resolve(l_token);
+		let l_retval2 = {
+			payload: {
+				token: l_token
+			}
+		}
+		return resolve(l_retval2);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function tokenLogin failed. Error: ${JSON.stringify(error)}`);
 		return reject(uiTexts.unknownError);

@@ -120,8 +120,8 @@ test('Successfull login user', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
@@ -170,16 +170,16 @@ test('Successfull login user via JWT', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
-	let response4 = await serialEntrepreneurBackendHandlers.loginUserViaToken(response3);
-	tickLog.info(`New JWT token: ${JSON.stringify(response4)}`);
-	expect(response4).toBeDefined();
-	expect(response4.length).toBeGreaterThan(0);
-	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response4);
+	let response4 = await serialEntrepreneurBackendHandlers.loginUserViaToken(response3.payload.token);
+	tickLog.info(`New JWT token: ${JSON.stringify(response4.payload.token)}`);
+	expect(response4.payload.token).toBeDefined();
+	expect(response4.payload.token.length).toBeGreaterThan(0);
+	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response4.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);
@@ -208,12 +208,12 @@ test('Remove user', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
-	let response4 = await serialEntrepreneurBackendHandlers.removeUser(email, response3);
+	let response4 = await serialEntrepreneurBackendHandlers.removeUser(email, response3.payload.token);
 	tickLog.info(`Remove user response: ${JSON.stringify(response4)}`);
 	expect(response4).toBeDefined();
 	expect(response4).toEqual(uiTexts.userRemoved);
@@ -229,13 +229,13 @@ test('Remove user - invalid email', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
 	try {
-		await serialEntrepreneurBackendHandlers.removeUser(`${email}-SOME-GARBAGE-DATA`, response3);
+		await serialEntrepreneurBackendHandlers.removeUser(`${email}-SOME-GARBAGE-DATA`, response3.payload.token);
 		expect(true).toEqual(false); // should not reach this line
 	}
 	catch (error) {
@@ -254,8 +254,8 @@ test('Password change', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
@@ -272,8 +272,8 @@ test('Password change', async () => {
 	let response5 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, newPassword);
 	tickLog.info(`New JWT token: ${JSON.stringify(response5)}`);
 	expect(response5).toBeDefined();
-	expect(response5.length).toBeGreaterThan(0);
-	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response5);
+	expect(response5.payload.token.length).toBeGreaterThan(0);
+	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response5.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);
@@ -290,8 +290,8 @@ test('Password change - invalid email', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
@@ -314,8 +314,8 @@ test('Password reset', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
@@ -330,8 +330,8 @@ test('Password reset', async () => {
 	let response6 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, newPassword);
 	tickLog.info(`New JWT token: ${JSON.stringify(response6)}`);
 	expect(response6).toBeDefined();
-	expect(response6.length).toBeGreaterThan(0);
-	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response6);
+	expect(response6.payload.token.length).toBeGreaterThan(0);
+	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response6.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);
@@ -347,20 +347,20 @@ test('Update user data', async () => {
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`JWT token: ${response3}`);
 	expect(response3).toBeDefined();
-	expect(response3.length).toBeGreaterThan(0);
-	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3);
+	expect(response3.payload.token.length).toBeGreaterThan(0);
+	let decoded = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response3.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
-	let response4 = await serialEntrepreneurBackendHandlers.updateUserData(response3, 'new-name');
+	let response4 = await serialEntrepreneurBackendHandlers.updateUserData(response3.payload.token, 'new-name');
 	tickLog.info(`Update user data response: ${JSON.stringify(response4)}`);
 	expect(response4).toBeDefined();
 	expect(response4).toEqual(uiTexts.userDataUpdated);
 	let response5 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
 	tickLog.info(`New JWT token: ${JSON.stringify(response5)}`);
 	expect(response5).toBeDefined();
-	expect(response5.length).toBeGreaterThan(0);
-	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response5);
+	expect(response5.payload.token.length).toBeGreaterThan(0);
+	let decoded2 = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response5.payload.token);
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded2)}`);
 	expect(decoded2).toBeDefined();
 	expect(decoded2.email).toEqual(email);

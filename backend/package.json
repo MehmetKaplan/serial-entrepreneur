@@ -1,6 +1,6 @@
 {
 	"name": "serial-entrepreneur-backend",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "The backend functions to handle the serial-entrepreneur functionalities.",
 	"main": "serial-entrepreneur-backend-handlers.js",
 	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/backend",

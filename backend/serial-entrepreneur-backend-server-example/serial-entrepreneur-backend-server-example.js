@@ -23,10 +23,12 @@ const callHandler = async (req, res, handler, paramsArr) => {
 		for (let i = 0; i < paramsArr.length; i++) {
 			paramsToSend.push(params[paramsArr[i]]);
 		}
-		await serialEntrepreneurBackend[handler](...paramsToSend); // never use the return value, they are to be used for testing only
-		res.json({
+		let l_result = await serialEntrepreneurBackend[handler](...paramsToSend); // never use the return value, they are to be used for testing only
+		let l_responseJSON = {
 			result: 'OK'
-		});
+		}
+		if (l_result?.payload) l_responseJSON.payload = l_result.payload;
+		res.json(l_responseJSON);
 	} catch (error) {
 		res.json({
 			result: 'FAIL',
