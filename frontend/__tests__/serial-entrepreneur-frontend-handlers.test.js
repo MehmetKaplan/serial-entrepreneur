@@ -185,3 +185,17 @@ test('resetPasswordStep2', async () => {
 });
 
 */
+
+test('updateuserdata', async () => {
+	let userIndex = getUserId++;
+	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
+	const fSuccess = (props, retval) => {
+		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
+		expect(retval).toMatchObject({"result":"OK"})
+	}
+	const fFail = (props, error) => {
+		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
+		expect(true).toBe(false);
+	}
+	await serialEntrepreneurFrontendHandlers.updateUserData(testUsers[userIndex].token, "SOME NEW NAME", fSuccess, fFail);
+});

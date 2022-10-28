@@ -51,7 +51,7 @@ const resetPasswordStep1 = async (email, successCallback, failCallback) => { awa
 
 const resetPasswordStep2 = async (email, confirmationCode, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'resetpasswordstep2', { email, confirmationCode, newPassword }, successCallback, failCallback); }
 
-const updateUserData = async (email, name, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'updateuserdata', { email, name }, successCallback, failCallback); }
+const updateUserData = async (token, name, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'updateuserdata', { token, name }, successCallback, failCallback); }
 
 module.exports = {
 	init: init,
