@@ -64,21 +64,21 @@ These pure JavaScript functions are designed to take the required parameters and
 
 	When a user succesfully registers, she/he should be able to login. For this we need to collect the email and password from the user and test if the credentials are correct. And if they are correct, we'll need to store the `JWT` so that next time login is seemless for the user.
 
-		You can use following functions in your [Login] page within the related submit button handler.
-		
-		```javascript
-		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
-		...
+	You can use following functions in your [Login] page within the related submit button handler.
+	
+	```javascript
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	...
 
-		// in your button's related event handler
-		const fSuccess = (props, retval) => {
-			// HANDLE YOUR SUCCESS CODE HERE
-		}
-		const fFail = (props, error) => {
-			// HANDLE YOUR FAIL CODE HERE
-		}
-		await serialEntrepreneurFrontendHandlers.loginUserViaMail(email, password, fSuccess, fFail);
-		```
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.loginUserViaMail(email, password, fSuccess, fFail);
+	```
 
 3. Implement the [Seamless Login] flow
 
