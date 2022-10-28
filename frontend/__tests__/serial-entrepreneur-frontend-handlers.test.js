@@ -14,9 +14,7 @@ const testUsers = [
 	{"name":"1666980976477-9","email":"1666980976477-9@yopmail.com","password":"1666980976477-9","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMwNSwiZW1haWwiOiIxNjY2OTgwOTc2NDc3LTlAeW9wbWFpbC5jb20iLCJpYXQiOjE2NjY5ODA5ODUsImV4cCI6MTY2OTY1OTM4NX0.l01N1T4lMWFLWdEeaUx_Mu8Xw0uwwI9yUKDDcIYt4RA"},	
 ];
 
-const testUsersAllocation = {
-	removeUser: 3,
-}
+let getUserId = 5;
 
 
 const apiBackend = 'http://development.computatus.com:61976'; // modify this with your backend
@@ -86,7 +84,8 @@ test('Test registerUserStep2 should fail because we don\'t know the confirmation
 });
 
 test('removeUser', async () => {
-	let userIndex = testUsersAllocation.removeUser;
+	let userIndex = getUserId++;
+	tickLog.info(`removeUser: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
 		expect(retval).toMatchObject({"result":"OK"})
@@ -97,3 +96,18 @@ test('removeUser', async () => {
 	}
 	await serialEntrepreneurFrontendHandlers.removeUser(testUsers[userIndex].email, testUsers[userIndex].token, fSuccess, fFail);
 });
+
+test('loginuserviamail', async () => {
+	let userIndex = getUserId++;
+	tickLog.info(`loginuserviamail: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
+	const fSuccess = (props, retval) => {
+		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
+		expect(retval).toMatchObject({"result":"OK"})
+	}
+	const fFail = (props, error) => {
+		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
+		expect(true).toBe(false);
+	}
+	await serialEntrepreneurFrontendHandlers.loginUserViaMail(testUsers[userIndex].email, testUsers[userIndex].password, fSuccess, fFail);
+});
+
