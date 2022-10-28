@@ -127,8 +127,12 @@ const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (re
 	}
 });
 
-const removeUser = (p_email) => new Promise(async (resolve, reject) => {
+const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => {
 	try {
+		let l_decoded = jwtDecode(p_token);
+		if (!(l_decoded.email === l_decoded.email)) {
+			return reject(uiTexts.invalidEmail);
+		};
 		let l_retval;
 		l_retval = await runSQL(sqls.selectUser, [p_email]);
 		if (l_retval.rows.length === 0) {

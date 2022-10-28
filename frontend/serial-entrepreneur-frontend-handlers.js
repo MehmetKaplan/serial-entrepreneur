@@ -39,7 +39,7 @@ const registerUserStep1 = async (name, email, password, successCallback, failCal
 
 const registerUserStep2 = async (email, confirmationCode, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'registeruserstep2', { email, confirmationCode }, successCallback, failCallback); }
 
-const removeUser = async (email, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'removeuser', { email }, successCallback, failCallback); }
+const removeUser = async (email, token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'removeuser', { email, token }, successCallback, failCallback); }
 
 const loginUserViaMail = async (email, password, successCallback, failCallback) => { await serialEntrepreneurBackendCall('GET', 'loginuserviamail', { email, password }, successCallback, failCallback); }
 

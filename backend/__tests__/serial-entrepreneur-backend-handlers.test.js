@@ -2,13 +2,13 @@ const serialEntrepreneurBackendHandlers = require('../serial-entrepreneur-backen
 const uiTexts = require('../ui-texts-english.json');
 const sqls = require('../sqls.json');
 
-const {runSQL, } = require('tamed-pg');
+const { runSQL, } = require('tamed-pg');
 
 const tickLog = require('tick-log');
 tickLog.forceColor(true);
 
 beforeAll(async () => {
-	 await serialEntrepreneurBackendHandlers.init({
+	await serialEntrepreneurBackendHandlers.init({
 		jwtKeys: {
 			secret: 'REPLACE-THIS-SECRET',
 			jwt_expiresIn: '31 days',
@@ -32,9 +32,6 @@ beforeAll(async () => {
 		},
 	});
 });
-
-
-
 
 jest.setTimeout(20000);
 
@@ -216,7 +213,7 @@ test('Remove user', async () => {
 	tickLog.info(`Decoded JWT token: ${JSON.stringify(decoded)}`);
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
-	let response4 = await serialEntrepreneurBackendHandlers.removeUser(email);
+	let response4 = await serialEntrepreneurBackendHandlers.removeUser(email, response3);
 	tickLog.info(`Remove user response: ${JSON.stringify(response4)}`);
 	expect(response4).toBeDefined();
 	expect(response4).toEqual(uiTexts.userRemoved);
@@ -238,7 +235,7 @@ test('Remove user - invalid email', async () => {
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
 	try {
-		await serialEntrepreneurBackendHandlers.removeUser(`${email}-SOME-GARBAGE-DATA`);
+		await serialEntrepreneurBackendHandlers.removeUser(`${email}-SOME-GARBAGE-DATA`, response3);
 		expect(true).toEqual(false); // should not reach this line
 	}
 	catch (error) {
@@ -369,3 +366,30 @@ test('Update user data', async () => {
 	expect(decoded2.email).toEqual(email);
 });
 
+
+test('Prepare users for frontend tests', async () => {
+	let now = Date.now();
+	let testUserCount = 10
+	let names = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
+	let emails = [...Array(testUserCount).keys()].map(v => `${now}-${v}@yopmail.com`);
+	let passwords = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
+	let outputText = '\FRONTEND TEST USERS';
+	for (let i = 0; i < names.length; i++) {
+		let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(names[i], emails[i], passwords[i]);
+		let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(emails[i], response1);
+		let l_decodedToken = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response2);
+		expect(l_decodedToken).toHaveProperty("userId");
+		expect(response2).toBeDefined();
+		expect(response2.length).toBeGreaterThan(0);
+		let response3 = await runSQL(sqls.selectUser, [`${emails[i]}`]);
+		expect(response3.rows.length).toEqual(1);
+		let l_curUserData ={
+			name: names[i],
+			email: emails[i],
+			password: passwords[i],
+			token: response2,
+		}
+		outputText += `\n\x1b[0;32m${JSON.stringify(l_curUserData)}\x1b[0m`;
+	}
+	tickLog.info(outputText);
+});
