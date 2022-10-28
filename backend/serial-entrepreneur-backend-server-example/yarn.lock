@@ -297,9 +297,9 @@ express@^4.18.2:
     vary "~1.1.2"
 
 fetch-lean@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/fetch-lean/-/fetch-lean-1.0.3.tgz#495858b0b5d71af762ca391144116b988c4a40dc"
-  integrity sha512-R+iziBVWAMWmybL0fBlG0KL4mVoX7Kz9EvufzGX+slBYNvPNvz6lXUbM1cu0wdtOpwyZCPhK9Vt3OFLF3CzI3w==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/fetch-lean/-/fetch-lean-1.0.4.tgz#4c3f50b6d849dadf5f2455033430f7173e62da9a"
+  integrity sha512-Fbd7CpFO+CpzfCrwlgIcjkVZXuEPzflg0Gj6QULt7xbXlbNEUwzuVoRPPIHCV8RBLlyqWYRQquWb+3O55QspQg==
 
 finalhandler@1.2.0:
   version "1.2.0"

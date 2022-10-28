@@ -23,10 +23,15 @@ const callHandler = async (req, res, handler, paramsArr) => {
 		for (let i = 0; i < paramsArr.length; i++) {
 			paramsToSend.push(params[paramsArr[i]]);
 		}
-		await serialEntrepreneurBackend[handler](...paramsToSend);
-		res.status(200).send('OK');
+		await serialEntrepreneurBackend[handler](...paramsToSend); // never use the return value, they are to be used for testing only
+		res.status(200).json({
+			result: 'OK'
+		});
 	} catch (error) {
-		res.status(500).send(error);
+		res.status(500).json({
+			result: 'FAIL',
+			error: error
+		});
 	}
 }
 

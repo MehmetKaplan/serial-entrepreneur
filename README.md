@@ -27,7 +27,7 @@ The license is MIT and full text [here](LICENSE).
 #### Used Modules
 
 * tick-log license [here](./OtherLicenses/tick-log.txt)
-* fetch-lean license [here](./OtherLicenses/fetch-lean.txt)
 * tamed-pg license [here](./OtherLicenses/tamed-pg.txt)
+* node-fetch license [here](./OtherLicenses/node-fetch.txt)
 * bcrypt license [here](./OtherLicenses/bcrypt.txt)
 * jsonwebtoken license [here](./OtherLicenses/jsonwebtoken.txt)
