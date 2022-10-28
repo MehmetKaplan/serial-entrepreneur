@@ -41,11 +41,11 @@ const registerUserStep2 = async (email, confirmationCode, successCallback, failC
 
 const removeUser = async (email, token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'removeuser', { email, token }, successCallback, failCallback); }
 
-const loginUserViaMail = async (email, password, successCallback, failCallback) => { await serialEntrepreneurBackendCall('GET', 'loginuserviamail', { email, password }, successCallback, failCallback); }
+const loginUserViaMail = async (email, password, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'loginuserviamail', { email, password }, successCallback, failCallback); }
 
-const loginUserViaToken = async (token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('GET', 'loginuserviatoken', { token }, successCallback, failCallback); }
+const loginUserViaToken = async (token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'loginuserviatoken', { token }, successCallback, failCallback); }
 
-const changePassword = async (email, password, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'changepassword', { email, password, newPassword }, successCallback, failCallback); }
+const changePassword = async (email, oldPassword, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'changepassword', { email, oldPassword, newPassword }, successCallback, failCallback); }
 
 const resetPasswordStep1 = async (email, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'resetpasswordstep1', { email }, successCallback, failCallback); }
 

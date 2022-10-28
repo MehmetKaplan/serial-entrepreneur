@@ -85,11 +85,11 @@ const callHandler = async (req, res, handler, paramsArr) => {
 			paramsToSend.push(params[paramsArr[i]]);
 		}
 		await serialEntrepreneurBackend[handler](...paramsToSend); // never use the return value, they are to be used for testing only
-		res.status(200).json({
+		res.json({
 			result: 'OK'
 		});
 	} catch (error) {
-		res.status(500).json({
+		res.json({
 			result: 'FAIL',
 			error: error
 		});
@@ -116,9 +116,9 @@ const startServer = async () => {
 	app.get('/testhandler', async (req, res) => { callHandler(req, res, 'testHandler', ['name', 'email', 'password']); });
 	app.post('/registeruserstep1', async (req, res) => { callHandler(req, res, 'registerUserStep1', ['name', 'email', 'password']) });
 	app.post('/registeruserstep2', async (req, res) => { callHandler(req, res, 'registerUserStep2', ['email', 'confirmationCode']) });
-	app.post('/removeuser', async (req, res) => { callHandler(req, res, 'removeUser', ['email']) });
-	app.get('/loginuserviamail', async (req, res) => { callHandler(req, res, 'loginUserViaMail', ['email', 'password']) });
-	app.get('/loginuserviatoken', async (req, res) => { callHandler(req, res, 'loginUserViaToken', ['token']) });
+	app.post('/removeuser', async (req, res) => { callHandler(req, res, 'removeUser', ['email', 'token']) });
+	app.post('/loginuserviamail', async (req, res) => { callHandler(req, res, 'loginUserViaMail', ['email', 'password']) });
+	app.post('/loginuserviatoken', async (req, res) => { callHandler(req, res, 'loginUserViaToken', ['token']) });
 	app.post('/changepassword', async (req, res) => { callHandler(req, res, 'changePassword', ['email', 'oldPassword', 'newPassword']) });
 	app.post('/resetpasswordstep1', async (req, res) => { callHandler(req, res, 'resetPasswordStep1', ['email']) });
 	app.post('/resetpasswordstep2', async (req, res) => { callHandler(req, res, 'resetPasswordStep2', ['email', 'confirmationCode', 'newPassword']) });

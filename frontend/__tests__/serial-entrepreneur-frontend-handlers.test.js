@@ -24,7 +24,7 @@ const testUsers = [
 	{"name":"1666982550049-19","email":"1666982550049-19@yopmail.com","password":"1666982550049-19","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMzNywiZW1haWwiOiIxNjY2OTgyNTUwMDQ5LTE5QHlvcG1haWwuY29tIiwiaWF0IjoxNjY2OTgyNTY4LCJleHAiOjE2Njk2NjA5Njh9.SSyxogz1YrLqbooCF7hQFcyv0DwopKMwQL1Em8g3Zmw"},
 ];
 
-let getUserId = 0;
+let getUserId = 5;
 
 
 const apiBackend = 'http://development.computatus.com:61976'; // modify this with your backend
@@ -39,7 +39,7 @@ beforeAll(async () => {
 });
 
 // jest.setTimeout(10000)
-
+/*
 test('Test testHandler', async () => {
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
@@ -134,3 +134,20 @@ test('loginuserviatoken', async () => {
 	}
 	await serialEntrepreneurFrontendHandlers.loginUserViaToken(testUsers[userIndex].token, fSuccess, fFail);
 });
+
+test('changepassword', async () => {
+	let userIndex = getUserId++;
+	tickLog.info(`changepassword: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
+	const fSuccess = (props, retval) => {
+		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
+		expect(retval).toMatchObject({"result":"OK"})
+	}
+	const fFail = (props, error) => {
+		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
+		expect(true).toBe(false);
+	}
+	// change to the same password so that test data can be reused.
+	await serialEntrepreneurFrontendHandlers.changePassword(testUsers[userIndex].email, testUsers[userIndex].password, testUsers[userIndex].password, fSuccess, fFail);
+});
+*/
+

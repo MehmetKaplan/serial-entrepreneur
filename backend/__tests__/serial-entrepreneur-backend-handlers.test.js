@@ -369,7 +369,7 @@ test('Update user data', async () => {
 
 test('Prepare users for frontend tests', async () => {
 	let now = Date.now();
-	let testUserCount = 10
+	let testUserCount = 20
 	let names = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
 	let emails = [...Array(testUserCount).keys()].map(v => `${now}-${v}@yopmail.com`);
 	let passwords = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
