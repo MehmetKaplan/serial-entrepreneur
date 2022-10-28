@@ -149,7 +149,7 @@ test('changepassword', async () => {
 	// change to the same password so that test data can be reused.
 	await serialEntrepreneurFrontendHandlers.changePassword(testUsers[userIndex].email, testUsers[userIndex].password, testUsers[userIndex].password, fSuccess, fFail);
 });
-*/
+
 
 test('resetPasswordStep1', async () => {
 	let userIndex = getUserId++;
@@ -164,3 +164,24 @@ test('resetPasswordStep1', async () => {
 	}
 	await serialEntrepreneurFrontendHandlers.resetPasswordStep1(testUsers[userIndex].email, fSuccess, fFail);
 });
+
+test('resetPasswordStep2', async () => {
+	let userIndex = getUserId++;
+	tickLog.info(`resetPasswordStep2: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)}`);
+	const fSuccess = (props, retval) => {
+		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
+		expect(true).toBe(false);
+	}
+	const fFail = (props, error) => {
+		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
+		expect(error).toMatchObject({"result":"FAIL", "error":"Invalid confirmation code."})
+	}
+	try {
+		await serialEntrepreneurFrontendHandlers.resetPasswordStep2(testUsers[userIndex].email, 'SOME-GARBAGE-CONFIRMATION-CODE', testUsers[userIndex].password, fSuccess, fFail);
+	} catch (error) {
+		tickLog.error(`Correctly caught exception: ${JSON.stringify(error)}`);
+		expect(error).toMatchObject({"result":"FAIL", "error":"Invalid confirmation code."})		
+	}
+});
+
+*/
