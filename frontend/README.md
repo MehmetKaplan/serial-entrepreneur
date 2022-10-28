@@ -1,22 +1,18 @@
 ## SETUP - FRONTEND
 
-This is the frontend library of the `serial-entrepreneur` structure. For full setup please refer to https://github.com/MehmetKaplan/serial-entrepreneur where this frontend structure is an integrated part with the database and backend structures.
+This is the frontend part of the `serial-entrepreneur` library. For full setup please refer to https://github.com/MehmetKaplan/serial-entrepreneur.
 
-Following steps should lead you to prepare a proper frontend setup for the `serial-entrepreneur`. This frontend components are designed to be pre-integrated with the backend functions out of the box, provided the setup steps are followed.
+Following steps should lead you to prepare a proper frontend setup for the `serial-entrepreneur`. This frontend components are designed to be pre-integrated with the backend functions out of the box, provided the setup steps are followed and a backend server, as shown in the backend library example, is run.
 
-On the other hand, the components are not styled and only the styling is left to you, because obviously every project will have their own look and feel.
+Add the pure JavaScript handlers into your frontend code. (*)
 
+```bash
+yarn add serial-entrepreneur-frontend-handlers
+```
 
-1. Initiate a new project
+These pure JavaScript take the parameters and 2 functions, success and fail callbacks. With these callbacks you can use these functions within your frontend  button handlers.
 
-	Throuhout this document we'll use `serial-entrepreneur-example` as our project name. Feel free to use your own project name.
-
-	```bash
-	expo init serial-entrepreneur-example
-	cd serial-entrepreneur-example
-	```
-
-2. Implement the [Register User] flow
+1. Implement the [Register User] flow
 
 	The [Register User] flow needs to have 2 steps. 
 	
@@ -29,54 +25,77 @@ On the other hand, the components are not styled and only the styling is left to
 
 		Once we collect them, we'll need `serial-entrepreneur-backend` to send a confirmation mail to the mail address, with a confirmation code.
 
-		Add and use following components in your [MODIFYME] page.
+		You can use following functions in your [Register User] page within the related submit button handler.
 		```javascript
-		// MODIFYME
-		```
-		Usage example:
-		```javascript
-		// MODIFYME
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		...
+
+		// in your button's related event handler
+		const fSuccess = (props, retval) => {
+			// HANDLE YOUR SUCCESS CODE HERE
+		}
+		const fFail = (props, error) => {
+			// HANDLE YOUR FAIL CODE HERE
+		}
+		await serialEntrepreneurFrontendHandlers.registerUserStep1(name, email, password, fSuccess, fFail);
 		```
 
 	2. Confirm the email.
  
 	   Assuming the `serial-entrepreneur-backend` sent a confirmation mail to the mail address, next we need to verify the confirmation code which implies the mail is really owned by the user. If the user provides the correct confirmation code, the `serial-entrepreneur-backend` should save the user information to the database.
 
-		Add and use following components in your [MODIFYME] page.
+		You can use following functions in your [Confirmation Code Verification] page within the related submit button handler.
 		```javascript
-		// MODIFYME
-		```
-		Usage example:
-		```javascript
-		// MODIFYME
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		...
+
+		// in your button's related event handler
+		const fSuccess = (props, retval) => {
+			// HANDLE YOUR SUCCESS CODE HERE
+		}
+		const fFail = (props, error) => {
+			// HANDLE YOUR FAIL CODE HERE
+		}
+		await serialEntrepreneurFrontendHandlers.registerUserStep2(email, confirmationCode, fSuccess, fFail);
 		```
 
-3. Implement the [Login] flow
+
+2. Implement the [Login] flow
 
 	When a user succesfully registers, she/he should be able to login. For this we need to collect the email and password from the user and test if the credentials are correct. And if they are correct, we'll need to store the `JWT` so that next time login is seemless for the user.
 
-	Add and use following components in your [MODIFYME] page.
-	```javascript
-	// MODIFYME
-	```
-	Usage example:
-	```javascript
-	// MODIFYME
-	```
+		You can use following functions in your [Login] page within the related submit button handler.
+		```javascript
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		...
+
+		// in your button's related event handler
+		const fSuccess = (props, retval) => {
+			// HANDLE YOUR SUCCESS CODE HERE
+		}
+		const fFail = (props, error) => {
+			// HANDLE YOUR FAIL CODE HERE
+		}
+		await serialEntrepreneurFrontendHandlers.loginUserViaMail(email, password, fSuccess, fFail);
+		```
 
 3. Implement the [Seamless Login] flow
 
-	If the user logged in successfully and chose the "remember me" option, next time when she/he is logging in there should not be a need to collect credentials once again. And this is accomplished by saving the token when the user first logged in and refreshing it in eack authentication event.
+	If the user logged in successfully and chose the "remember me" option, next time when she/he is logging in there should not be a need to collect credentials once again. And this is accomplished by saving the token when the user first logged in and refreshing it in each authentication event.
 
-	In order to achieve this we'll need to add the following code in our root page, ie. the `App.js` within the `expo` project.
+	You can use following functions in your [root (App.js)] page within the related life cycle (on load) handler or hook (useEffect).
+	```javascript
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	...
 
-	Add and use following components in your [MODIFYME] page.
-	```javascript
-	// MODIFYME
-	```
-	Usage example:
-	```javascript
-	// MODIFYME
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.loginUserViaToken(token, fSuccess, fFail);
 	```
 
 4. Implement the [Password Reset] flow
@@ -89,64 +108,101 @@ On the other hand, the components are not styled and only the styling is left to
 
 		Collect the `email` for this purpose and generate a confirmation code at the backend for this request.
 
-		Add and use following components in your [MODIFYME] page.
+		You can use following functions in your [Forgot Password] page within the related submit button handler.
 		```javascript
-		// MODIFYME
-		```
-		Usage example:
-		```javascript
-		// MODIFYME
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		...
+
+		// in your button's related event handler
+		const fSuccess = (props, retval) => {
+			// HANDLE YOUR SUCCESS CODE HERE
+		}
+		const fFail = (props, error) => {
+			// HANDLE YOUR FAIL CODE HERE
+		}
+		await serialEntrepreneurFrontendHandlers.resetPasswordStep1(email, fSuccess, fFail);
 		```
 
 	2. Check the confirmation code in order to verify the email ownership.
 
-		Add and use following components in your [MODIFYME] page.
+		You can use following functions in your [Forgot Password Confirmation Code Verification] page within the related submit button handler.
 		```javascript
-		// MODIFYME
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		...
+
+		// in your button's related event handler
+		const fSuccess = (props, retval) => {
+			// HANDLE YOUR SUCCESS CODE HERE
+		}
+		const fFail = (props, error) => {
+			// HANDLE YOUR FAIL CODE HERE
+		}
+			await serialEntrepreneurFrontendHandlers.resetPasswordStep2(email, confirmationCode, newPassword, fSuccess, fFail);
 		```
-		Usage example:
-		```javascript
-		// MODIFYME
-		```
+
 
 5. Implement the [Change Password] flow
 
 	We need to provide a method for the users to be able to change their users. For this purpose, we'll need to get the old password which justifies the users ownership of the account.
 
-	Add and use following components in your [MODIFYME] page.
+	You can use following functions in your [Change Password] page within the related submit button handler.
 	```javascript
-	// MODIFYME
-	```
-	Usage example:
-	```javascript
-	// MODIFYME
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	...
+
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.changePassword(email, oldPassword, newPassword, fSuccess, fFail);
 	```
 
 6. Implement the [User Data Update] flow
 
 	As stated previously the `serial-entrepreneur` collects as minimum data as possible from users. By default these data are `email` and `name` (a free text to keep whole name). In order to enrich the collected data the backend table should be added new columns. And those data should be updated seperately. But for the sake of the out of the box functionality `serial-entrepreneur` gives the update of the name field.
-	Add and use following components in your [MODIFYME] page.
+	
+	You can use following functions in your [User Data Update] page within the related submit button handler.
 	```javascript
-	// MODIFYME
-	```
-	Usage example:
-	```javascript
-	// MODIFYME
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	...
+
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, fSuccess, fFail);
 	```
 
 7. Implement the [Remove User] flow
 
-	For some of the data privacy rules, in order to comply we need to provide a method for users to completely remove their data. For this purpose we collenct the requst from users and handle it as follwos.
+	In order to comply with some of the data privacy laws, we need to provide a method for users to completely remove their data. For this we provide the user removing functionality.
 
-	Add and use following components in your [MODIFYME] page.
+	You can use following functions in your [Remove User] page within the related submit button handler.
 	```javascript
-	// MODIFYME
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	...
+
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.removeUser(email, token, fSuccess, fFail);
 	```
-	Usage example:
-	```javascript
-	// MODIFYME
-	```
+
 
 ### Integration with Popular Authentication Providers
 
 On top of our mail based authentication, `expo` has wonderful integrations with common authentication providers. We strongly encourage you tocheck and use them from follwoing link: https://docs.expo.dev/guides/authentication/#guides
+
+
+(*)
+**Note**: Most modern frontend frameworks handle the `fetch` functionality. So we assumed it already exists. If you want to use the fuctions with `node.js` (for example for automated tests), be sure to use with version >= 18 where `fetch` is shipped by default.
