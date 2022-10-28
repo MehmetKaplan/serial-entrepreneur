@@ -62,7 +62,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 2. Implement the [Login] flow
 
-	When a user succesfully registers, she/he should be able to login. For this we need to collect the email and password from the user and test if the credentials are correct. And if they are correct, we'll need to store the `JWT` so that next time login is seemless for the user.
+	When a user succesfully registers, she/he should be able to login. For this we need to collect the email and password from the user and test if the credentials are correct. And if they are correct, we'll need to generate and store a `JWT` so that next time login is seamless for the user.
 
 	You can use following functions in your [Login] page within the related submit button handler.
 	
@@ -138,7 +138,7 @@ These pure JavaScript functions are designed to take the required parameters and
 		const fFail = (props, error) => {
 			// HANDLE YOUR FAIL CODE HERE
 		}
-			await serialEntrepreneurFrontendHandlers.resetPasswordStep2(email, confirmationCode, newPassword, fSuccess, fFail);
+		await serialEntrepreneurFrontendHandlers.resetPasswordStep2(email, confirmationCode, newPassword, fSuccess, fFail);
 		```
 
 
@@ -182,7 +182,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 7. Implement the [Remove User] flow
 
-	In order to comply with some of the data privacy laws, we need to provide a method for users to completely remove their data. For this we provide the user removing functionality.
+	In order to comply with some of the data privacy laws, we need to provide a method for users to completely remove their data. For this purpose we provide the user removing functionality.
 
 	You can use following functions in your [Remove User] page within the related submit button handler.
 	```javascript
@@ -202,7 +202,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 ### Integration with Popular Authentication Providers
 
-On top of our mail based authentication, `expo` has wonderful integrations with common authentication providers. We strongly encourage you tocheck and use them from follwoing link: https://docs.expo.dev/guides/authentication/#guides
+On top of our mail based authentication, `expo` has wonderful integrations with common authentication providers. We strongly encourage you to check and use them from the following link: https://docs.expo.dev/guides/authentication/#guides
 
 
 (*)
