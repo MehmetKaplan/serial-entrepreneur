@@ -7,6 +7,8 @@ const { runSQL, } = require('tamed-pg');
 const tickLog = require('tick-log');
 tickLog.forceColor(true);
 
+let poolName;
+
 beforeAll(async () => {
 	await serialEntrepreneurBackendHandlers.init({
 		jwtKeys: {
@@ -31,6 +33,7 @@ beforeAll(async () => {
 			port: 5432,
 		},
 	});
+	poolName = serialEntrepreneurBackendHandlers.exportedForTesting.poolInfoForTests.poolName;
 });
 
 jest.setTimeout(20000);
@@ -65,7 +68,7 @@ test('Register user', async () => {
 	expect(response2.length).toBeGreaterThan(0);
 	let l_decodedToken = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response2);
 	expect(l_decodedToken).toHaveProperty("userId");
-	let response3 = await runSQL(sqls.selectUser, [`${email}`]);
+	let response3 = await runSQL(poolName, sqls.selectUser, [`${email}`]);
 	tickLog.success(`User: ${JSON.stringify(response3.rows)}`);
 	expect(response3.rows.length).toEqual(1);
 });
@@ -77,7 +80,7 @@ test('Invalid confirmation code', async () => {
 	tickLog.info(`Confirmation code: ${response1a}`);
 	let confirmationCode = `${response1a}-SOME-GARBAGE-DATA`;
 	expect(serialEntrepreneurBackendHandlers.registerUserStep2(email, confirmationCode)).rejects.toEqual(uiTexts.invalidConfirmationCode);
-	let response3 = await runSQL(sqls.selectUser, [`${email}`]);
+	let response3 = await runSQL(poolName, sqls.selectUser, [`${email}`]);
 	tickLog.success(`User: ${JSON.stringify(response3.rows)}`);
 	expect(response3.rows.length).toEqual(0);
 });
@@ -381,7 +384,7 @@ test('Prepare users for frontend tests', async () => {
 		expect(l_decodedToken).toHaveProperty("userId");
 		expect(response2).toBeDefined();
 		expect(response2.length).toBeGreaterThan(0);
-		let response3 = await runSQL(sqls.selectUser, [`${emails[i]}`]);
+		let response3 = await runSQL(poolName, sqls.selectUser, [`${emails[i]}`]);
 		expect(response3.rows.length).toEqual(1);
 		let l_curUserData ={
 			name: names[i],

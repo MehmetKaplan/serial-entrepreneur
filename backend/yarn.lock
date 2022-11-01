@@ -2398,10 +2398,10 @@ tamed-mailer@^1.1.0:
     nodemailer "^6.8.0"
     tick-log "^1.1.2"
 
-tamed-pg@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/tamed-pg/-/tamed-pg-1.0.3.tgz#bfde673c14936398b25a12164aaba5f42befebb8"
-  integrity sha512-eBgplQCa4pgnUgll5hf4xQr98LVQuLMpjrxEHKOHX1ll4VvomSToBPT25eNQez7i7pHhyxzS/xEgUi6f3XIedA==
+tamed-pg@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tamed-pg/-/tamed-pg-2.0.0.tgz#2e99d8da3c1d4ebeaae5019c251b1741998a98d5"
+  integrity sha512-VBkCysFsVOui2IsHtNqfDlxQjFRWsUuHZCCpUoEu7qfDddn9TmDI1DobdOodAriZec1lcjzwVpMq21VZP+BU6Q==
   dependencies:
     pg "^8.8.0"
     tick-log "^1.1.2"

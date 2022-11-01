@@ -11,12 +11,17 @@ const uiTexts = require('./ui-texts-english.json');
 
 const keys = {};
 
+let poolName;
+
+const poolInfoForTests = {};
+
 const init = (p_params) => new Promise(async (resolve, reject) => {
 	try {
 		keys.jwtKeys = p_params.jwtKeys;
 		keys.bcryptKeys = p_params.bcryptKeys;
 		keys.emailKeys = p_params.emailKeys;
-		await connect(p_params.pgKeys);
+		poolName = await connect(p_params.pgKeys);
+		poolInfoForTests.poolName = poolName;
 		return resolve(true);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function init failed. Error: ${JSON.stringify(error)}`);
@@ -79,13 +84,13 @@ const generateConfirmationCode = () => {
 const registerUserStep1 = (p_name, p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
 		if (l_retval.rows.length > 0) {
 			return reject(uiTexts.emailAlreadyExists);
 		};
 		let l_confirmationCode = generateConfirmationCode();
 		let l_hashedPassword = await hashPassword(p_password);
-		await runSQL(sqls.insertUserRegistrations, [l_confirmationCode, p_name, p_email, l_hashedPassword]);
+		await runSQL(poolName, sqls.insertUserRegistrations, [l_confirmationCode, p_name, p_email, l_hashedPassword]);
 		let l_mailBody = uiTexts.confirmationCodeMailContent
 			.replace(/\{0\}/g, p_name)
 			.replace(/\{1\}/g, uiTexts.applicationName)
@@ -111,14 +116,14 @@ const generateUserToken = (p_userid, p_email) => {
 const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectUserRegistrations, [p_email, p_confirmationCode]);
+		l_retval = await runSQL(poolName, sqls.selectUserRegistrations, [p_email, p_confirmationCode]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
-		await runSQL(sqls.insertUser, [l_retval.rows[0].name, p_email, l_retval.rows[0].password]);
-		await runSQL(sqls.deleteUserRegistrations, [p_email]);
-		runSQL(sqls.deleteExpiredUserRegistrations, []);
-		let l_insertedUsersRow = await runSQL(sqls.selectUser, [p_email]);
+		await runSQL(poolName, sqls.insertUser, [l_retval.rows[0].name, p_email, l_retval.rows[0].password]);
+		await runSQL(poolName, sqls.deleteUserRegistrations, [p_email]);
+		runSQL(poolName, sqls.deleteExpiredUserRegistrations, []);
+		let l_insertedUsersRow = await runSQL(poolName, sqls.selectUser, [p_email]);
 		let l_token = generateUserToken(l_insertedUsersRow.rows[0].id, p_email);
 		return resolve(l_token);
 	} catch (error) /* istanbul ignore next */ {
@@ -134,11 +139,11 @@ const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => 
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_retval;
-		l_retval = await runSQL(sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
-		await runSQL(sqls.deleteUser, [p_email]);
+		await runSQL(poolName, sqls.deleteUser, [p_email]);
 		return resolve(uiTexts.userRemoved);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function removeUser failed. Error: ${JSON.stringify(error)}`);
@@ -149,7 +154,7 @@ const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => 
 const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmailOrPassword);
 		};
@@ -177,7 +182,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 		if (!l_decodedToken) {
 			return reject(uiTexts.invalidJWTToken);
 		};
-		let l_retval = await runSQL(sqls.selectUser, [l_decodedToken.email]);
+		let l_retval = await runSQL(poolName, sqls.selectUser, [l_decodedToken.email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidJWTToken);
@@ -198,7 +203,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
 		let l_retval;
-		l_retval = await runSQL(sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
@@ -209,7 +214,7 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 			return reject(uiTexts.invalidOldPassword);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(sqls.updateUserPassword, [l_newHashedPassword, p_email]);
+		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, p_email]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`);
@@ -220,14 +225,14 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 	try {
 		let l_user;
-		l_user = await runSQL(sqls.selectUser, [p_email]);
+		l_user = await runSQL(poolName, sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_confirmationCode = generateConfirmationCode();
-		await runSQL(sqls.insertUserPasswordReset, [p_email, l_confirmationCode]);
-		await runSQL(sqls.deleteExpiredUserPasswordResets, []);
+		await runSQL(poolName, sqls.insertUserPasswordReset, [p_email, l_confirmationCode]);
+		await runSQL(poolName, sqls.deleteExpiredUserPasswordResets, []);
 		let l_subject = uiTexts.resetPasswordMailSubject
 			.replace(/\{0\}/g, l_user.rows[0].name);
 		let l_mailBody = uiTexts.passwordResetMailBody
@@ -246,20 +251,20 @@ const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
 		let l_user;
-		l_user = await runSQL(sqls.selectUser, [p_email]);
+		l_user = await runSQL(poolName, sqls.selectUser, [p_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_passwordReset;
-		l_passwordReset = await runSQL(sqls.selectUserPasswordReset, [p_email, p_confirmationCode]);
+		l_passwordReset = await runSQL(poolName, sqls.selectUserPasswordReset, [p_email, p_confirmationCode]);
 		/* istanbul ignore if */
 		if (l_passwordReset.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(sqls.updateUserPassword, [l_newHashedPassword, p_email]);
-		await runSQL(sqls.deleteUserPasswordReset, [p_email, p_confirmationCode]);
+		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, p_email]);
+		await runSQL(poolName, sqls.deleteUserPasswordReset, [p_email, p_confirmationCode]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
@@ -273,12 +278,12 @@ const updateUserData = (p_token, p_name) => new Promise(async (resolve, reject) 
 		if (!l_decodedToken) {
 			return reject(uiTexts.invalidJWTToken);
 		};
-		let l_retval = await runSQL(sqls.selectUserFromId, [l_decodedToken.userId]);
+		let l_retval = await runSQL(poolName, sqls.selectUserFromId, [l_decodedToken.userId]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidJWTToken);
 		};
-		await runSQL(sqls.updateUserData, [l_decodedToken.userId, p_name]);
+		await runSQL(poolName, sqls.updateUserData, [l_decodedToken.userId, p_name]);
 		return resolve(uiTexts.userDataUpdated);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function updateUserData failed. Error: ${JSON.stringify(error)}`);
@@ -299,6 +304,7 @@ module.exports = {
 	resetPasswordStep2: resetPasswordStep2,
 	updateUserData: updateUserData,
 	exportedForTesting: {
+		poolInfoForTests: poolInfoForTests,
 		hashPassword: hashPassword,
 		jwtEncode: jwtEncode,
 		jwtDecode: jwtDecode

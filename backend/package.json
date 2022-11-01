@@ -1,6 +1,6 @@
 {
 	"name": "serial-entrepreneur-backend",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "The backend functions to handle the serial-entrepreneur functionalities.",
 	"main": "serial-entrepreneur-backend-handlers.js",
 	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/backend",
@@ -14,7 +14,7 @@
 		"bcrypt": "^5.1.0",
 		"jsonwebtoken": "^8.5.1",
 		"tamed-mailer": "^1.1.0",
-		"tamed-pg": "^1.0.3",
+		"tamed-pg": "^2.0.0",
 		"tick-log": "^1.1.2"
 	},
 	"devDependencies": {
