@@ -1,4 +1,4 @@
-const serialEntrepreneurBackendHandlers = require('../serial-entrepreneur-backend-handlers.js');
+const serialEntrepreneurBackendHandlers = require('../serial-entrepreneur-backend.js');
 const uiTexts = require('../ui-texts-english.json');
 const sqls = require('../sqls.json');
 

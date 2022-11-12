@@ -1,8 +1,8 @@
 {
 	"name": "serial-entrepreneur-backend",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "The backend functions to handle the serial-entrepreneur functionalities.",
-	"main": "serial-entrepreneur-backend-handlers.js",
+	"main": "serial-entrepreneur-backend.js",
 	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/backend",
 	"author": "Mehmet Kaplan",
 	"license": "MIT",

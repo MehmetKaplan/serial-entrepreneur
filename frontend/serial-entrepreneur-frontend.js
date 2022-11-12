@@ -26,7 +26,7 @@ const serialEntrepreneurBackendCall = (method, route, props, successCallback, fa
 		};
 		failCallback(props, l_retval);
 		return reject(l_retval);
-	} catch (error) {
+	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`serialEntrepreneurBackendCall failed. method: ${method}, route: ${route}, props: ${JSON.stringify(props)}, error: ${JSON.stringify(error)}`);
 		failCallback(props, error);
 		return reject(error);

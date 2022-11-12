@@ -1,8 +1,8 @@
 {
 	"name": "serial-entrepreneur-frontend",
-	"version": "1.0.3",
+	"version": "1.0.5",
 	"description": "The frontend functions to handle the serial-entrepreneur functionalities.",
-	"main": "serial-entrepreneur-frontend-handlers.js",
+	"main": "serial-entrepreneur-frontend.js",
 	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/frontend",
 	"author": "Mehmet Kaplan",
 	"license": "MIT",

@@ -29,6 +29,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 	}
 });
 
+/* istanbul ignore next */
 const testHandler = (name, email, password) => new Promise(async (resolve, reject) => {
 	try {
 		tickLog.success(`testHandler: name: ${name}, email: ${email}, password: ${password}`);
@@ -135,6 +136,7 @@ const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (re
 const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => {
 	try {
 		let l_decoded = jwtDecode(p_token);
+		/* istanbul ignore if */
 		if (!(l_decoded.email === l_decoded.email)) {
 			return reject(uiTexts.invalidEmail);
 		};
@@ -275,6 +277,7 @@ const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new P
 const updateUserData = (p_token, p_name) => new Promise(async (resolve, reject) => {
 	try {
 		let l_decodedToken = jwtDecode(p_token);
+		/* istanbul ignore if */
 		if (!l_decodedToken) {
 			return reject(uiTexts.invalidJWTToken);
 		};

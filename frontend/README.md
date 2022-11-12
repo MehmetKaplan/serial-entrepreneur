@@ -7,7 +7,7 @@ Following steps should lead you to prepare a proper frontend setup for the `seri
 Add the pure JavaScript handlers into your frontend code. (*)
 
 ```bash
-yarn add serial-entrepreneur-frontend-handlers
+yarn add serial-entrepreneur-frontend
 ```
 
 These pure JavaScript functions are designed to take the required parameters and additionally 2 functions, success and fail callbacks. With these callbacks you can use these functions within your frontend  button handlers.
@@ -27,7 +27,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 		You can use following functions in your [Register User] page within the related submit button handler.
 		```javascript
-		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 		...
 
 		// in your button's related event handler
@@ -55,7 +55,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 		You can use following functions in your [Confirmation Code Verification] page within the related submit button handler.
 		```javascript
-		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 		...
 
 		// in your button's related event handler
@@ -85,7 +85,7 @@ These pure JavaScript functions are designed to take the required parameters and
 	You can use following functions in your [Login] page within the related submit button handler.
 	
 	```javascript
-	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 	...
 
 	// in your button's related event handler
@@ -114,7 +114,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 	You can use following functions in your [root (App.js)] page within the related life cycle (on load) handler or hook (useEffect).
 	```javascript
-	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 	...
 
 	// in your button's related event handler
@@ -148,7 +148,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 		You can use following functions in your [Forgot Password] page within the related submit button handler.
 		```javascript
-		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 		...
 
 		// in your button's related event handler
@@ -172,7 +172,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 		You can use following functions in your [Forgot Password Confirmation Code Verification] page within the related submit button handler.
 		```javascript
-		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+		const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 		...
 
 		// in your button's related event handler
@@ -200,7 +200,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 	You can use following functions in your [Change Password] page within the related submit button handler.
 	```javascript
-	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 	...
 
 	// in your button's related event handler
@@ -228,7 +228,7 @@ These pure JavaScript functions are designed to take the required parameters and
 	
 	You can use following functions in your [User Data Update] page within the related submit button handler.
 	```javascript
-	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 	...
 
 	// in your button's related event handler
@@ -255,7 +255,7 @@ These pure JavaScript functions are designed to take the required parameters and
 
 	You can use following functions in your [Remove User] page within the related submit button handler.
 	```javascript
-	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend-handlers');
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
 	...
 
 	// in your button's related event handler

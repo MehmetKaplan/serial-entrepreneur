@@ -15,7 +15,7 @@ yarn add serial-entrepreneur-backend
 2. Add the library to your backend express server.
 
 ```javascript
-const serialEntrepreneurBackendHandlers = require('serial-entrepreneur-backend-handlers');
+const serialEntrepreneurBackendHandlers = require('serial-entrepreneur-backend');
 
 ```
 
