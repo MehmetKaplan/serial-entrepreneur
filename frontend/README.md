@@ -12,6 +12,16 @@ yarn add serial-entrepreneur-frontend
 
 These pure JavaScript functions are designed to take the required parameters and additionally 2 functions, success and fail callbacks. With these callbacks you can use these functions within your frontend  button handlers.
 
+0. Introduce the API backend and if reuired the debug mode.
+   
+	```javascript
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
+	serialEntrepreneurFrontendHandlers.init({
+		apiBackend: apiBackend, // https://.....
+		debugMode: false, // never keep this value true in production
+	});
+	```
+
 1. Implement the [Register User] flow
 
 	The [Register User] flow needs to have 2 steps. 

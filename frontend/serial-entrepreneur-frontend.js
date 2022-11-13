@@ -3,9 +3,12 @@ const tickLog = require('tick-log');
 
 const keys = {};
 
+let debugMode = false;
+
 const init = (p_params) => new Promise(async (resolve, reject) => {
 	try {
 		keys.apiBackend = p_params.apiBackend;
+		debugMode = p_params?.debugMode;
 		return resolve(true);
 	} catch (error) /* istanbul ignore next */ {
 		return reject("Unknwon error");
@@ -16,7 +19,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 const serialEntrepreneurBackendCall = (method, route, props, successCallback, failCallback) => new Promise(async (resolve, reject) => {
 	let l_retval;
 	let l_url = `${keys.apiBackend}/${route}`;
-	tickLog.start(`serialEntrepreneurBackendCall ${method} ${l_url}`);
+	if (debugMode) tickLog.start(`serialEntrepreneurBackendCall ${method} ${l_url}`);
 	try {
 		l_retval = await fetchLean(method, l_url, {}, props);
 		//  l_retval: {"result":"FAIL","error":"Invalid confirmation code."}
@@ -27,7 +30,8 @@ const serialEntrepreneurBackendCall = (method, route, props, successCallback, fa
 		failCallback(props, l_retval);
 		return reject(l_retval);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`serialEntrepreneurBackendCall failed. method: ${method}, route: ${route}, props: ${JSON.stringify(props)}, error: ${JSON.stringify(error)}`);
+		tickLog.error(`serialEntrepreneurBackendCall failed. method: ${method}, route: ${route}, error: ${JSON.stringify(error)}`);
+		if (debugMode) tickLog.error(`props: ${JSON.stringify(props)}`);
 		failCallback(props, error);
 		return reject(error);
 	}

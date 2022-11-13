@@ -27,6 +27,7 @@ const serialEntrepreneurFrontendHandlers = require('../serial-entrepreneur-front
 beforeAll(async () => {
 	serialEntrepreneurFrontendHandlers.init({
 		apiBackend: apiBackend,
+		debugMode: true,
 	});
 });
 
