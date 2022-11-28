@@ -294,6 +294,26 @@ const updateUserData = (p_token, p_name) => new Promise(async (resolve, reject) 
 	}
 });
 
+
+const getUserData = (p_token) => new Promise(async (resolve, reject) => {
+	try {
+		let l_decodedToken = jwtDecode(p_token);
+		if (!l_decodedToken) {
+			return reject(uiTexts.invalidJWTToken);
+		};
+		let l_retval = await runSQL(poolName, sqls.selectUserFromId, [l_decodedToken.userId]);
+		/* istanbul ignore if */
+		if (l_retval.rows.length === 0) {
+			return reject(uiTexts.invalidJWTToken);
+		};
+		return resolve(l_retval.rows[0]);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function getUserData failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
+
+
 module.exports = {
 	init: init,
 	testHandler: testHandler,
@@ -306,6 +326,8 @@ module.exports = {
 	resetPasswordStep1: resetPasswordStep1,
 	resetPasswordStep2: resetPasswordStep2,
 	updateUserData: updateUserData,
+	getUserData: getUserData,
+	jwtDecode: jwtDecode,
 	exportedForTesting: {
 		poolInfoForTests: poolInfoForTests,
 		hashPassword: hashPassword,
