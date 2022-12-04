@@ -3,7 +3,7 @@
 	"version": "1.0.6",
 	"description": "The frontend functions to handle the serial-entrepreneur functionalities.",
 	"main": "serial-entrepreneur-frontend.js",
-	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/frontend",
+	"repository": "https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/frontend",
 	"author": "Mehmet Kaplan",
 	"license": "MIT",
 	"private": false,

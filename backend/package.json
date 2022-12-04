@@ -3,7 +3,7 @@
 	"version": "1.0.6",
 	"description": "The backend functions to handle the serial-entrepreneur functionalities.",
 	"main": "serial-entrepreneur-backend.js",
-	"repository": "https://github.com/mehmetkaplan/serial-entrepreneur/backend",
+	"repository": "https://github.com/MehmetKaplan/serial-entrepreneur/tree/master/backend",
 	"author": "Mehmet Kaplan",
 	"license": "MIT",
 	"private": false,

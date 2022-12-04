@@ -4,7 +4,7 @@ This is the backend part of the serial-entrepreneur library. For full setup plea
 
 Following steps should lead you to prepare a proper backend setup for the `serial-entrepreneur`. After this setup the backend functions can be used with `serial-entrepreneur-frontend` functions.
 
-A working example with below steps are here: https://github.com/mehmetkaplan/serial-entrepreneur/backend/serial-entrepreneur-backend-server-example
+A working example with below steps are here: https://github.com/MehmetKaplan/serial-entrepreneur/tree/master/backend/serial-entrepreneur-backend-server-example
 
 1. Add the request handlers as a dependency of your project.
 
