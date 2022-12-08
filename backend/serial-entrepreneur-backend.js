@@ -317,6 +317,26 @@ const getUserData = (p_token) => new Promise(async (resolve, reject) => {
 });
 
 
+const ssoBridgeViaEmail = (p_email) => new Promise(async (resolve, reject) => {
+	try {
+		let l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		/* istanbul ignore if */
+		if (l_retval.rows.length === 0) {
+			return reject(uiTexts.unknownUser);
+		};
+		let l_token = generateUserToken(l_retval.rows[0].id, p_email);
+		let l_retval2 = {
+			payload: {
+				token: l_token
+			}
+		}
+		return resolve(l_retval2);
+	} catch (error) /* istanbul ignore next */ {
+		tickLog.error(`Function ssoBridgeViaEmail failed. Error: ${JSON.stringify(error)}`);
+		return reject(uiTexts.unknownError);
+	}
+});
+
 module.exports = {
 	init: init,
 	testHandler: testHandler,
@@ -330,6 +350,8 @@ module.exports = {
 	resetPasswordStep2: resetPasswordStep2,
 	updateUserData: updateUserData,
 	getUserData: getUserData,
+	jwtDecode: jwtDecode,
+	ssoBridgeViaEmail: ssoBridgeViaEmail,
 	exportedForTesting: {
 		poolInfoForTests: poolInfoForTests,
 		hashPassword: hashPassword,
