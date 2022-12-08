@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@azure/msal-common@^7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-7.6.0.tgz#b52e97ef540275f72611cff57937dfa0b34cdcca"
-  integrity sha512-XqfbglUTVLdkHQ8F9UQJtKseRr3sSnr9ysboxtoswvaMVaEfvyLtMoHv9XdKUfOc0qKGzNgRFd9yRjIWVepl6Q==
+"@azure/msal-common@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-9.0.1.tgz#a89c3e156a60d5952aed17b80d3f69e40385daa0"
+  integrity sha512-eNNHIW/cwPTZDWs9KtYgb1X6gtQ+cC+FGX2YN+t4AUVsBdUbqlMTnUs6/c/VBxC2AAGIhgLREuNnO3F66AN2zQ==
 
 "@azure/msal-node@^1.14.2":
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/@azure/msal-node/-/msal-node-1.14.2.tgz#8f236a19efa506133d6c715047393146af182e3a"
-  integrity sha512-t3whVhhLdZVVeDEtUPD2Wqfa8BDi3EDMnpWp8dbuRW0GhUpikBfs4AQU0Fe6P9zS87n9LpmUTLrIcPEEuzkvfA==
+  version "1.14.5"
+  resolved "https://registry.yarnpkg.com/@azure/msal-node/-/msal-node-1.14.5.tgz#4045075f944a62e94e0b6d1e8fab4f21e3ad711e"
+  integrity sha512-NcVdMfn8Z3ogN+9RjOSF7uwf2Gki5DEJl0BdDSL83KUAgVAobtkZi5W8EqxbJLrTO/ET0jv5DregrcR5qg2pEA==
   dependencies:
-    "@azure/msal-common" "^7.6.0"
+    "@azure/msal-common" "^9.0.1"
     jsonwebtoken "^8.5.1"
     uuid "^8.3.0"
 
@@ -296,10 +296,10 @@ express@^4.18.2:
     utils-merge "1.0.1"
     vary "~1.1.2"
 
-fetch-lean@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/fetch-lean/-/fetch-lean-1.0.4.tgz#4c3f50b6d849dadf5f2455033430f7173e62da9a"
-  integrity sha512-Fbd7CpFO+CpzfCrwlgIcjkVZXuEPzflg0Gj6QULt7xbXlbNEUwzuVoRPPIHCV8RBLlyqWYRQquWb+3O55QspQg==
+fetch-lean@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/fetch-lean/-/fetch-lean-1.0.5.tgz#249ae54e8a686aaeb15320be8dd2ca683465b05f"
+  integrity sha512-QTNZCzh+Rr4QnrkUDueIwIANQ73oMZp0gSkz36F0RhHzfBw+1VImFy7YU8fYYZ4TzhrbL+cDEUWkQoye/BJT4w==
 
 finalhandler@1.2.0:
   version "1.2.0"
@@ -580,9 +580,16 @@ minimatch@^3.1.1:
     brace-expansion "^1.1.7"
 
 minipass@^3.0.0:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-3.3.4.tgz#ca99f95dd77c43c7a76bf51e6d200025eee0ffae"
-  integrity sha512-I9WPbWHCGu8W+6k1ZiGpPu0GkoKBeorkfKNuAFBNS1HNFJvke82sxvI5bzcCNpWPorkOO5QQ+zomzzwRxejXiw==
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-3.3.6.tgz#7bba384db3a1520d18c9c0e5251c3444e95dd94a"
+  integrity sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==
+  dependencies:
+    yallist "^4.0.0"
+
+minipass@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.0.0.tgz#7cebb0f9fa7d56f0c5b17853cbe28838a8dbbd3b"
+  integrity sha512-g2Uuh2jEKoht+zvO6vJqXmYpflPqzRBT+Th2h01DKh5z7wbY/AZ2gCQ78cP70YoHPyFdY30YBV5WxgLOEwOykw==
   dependencies:
     yallist "^4.0.0"
 
@@ -903,16 +910,15 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serial-entrepreneur-backend@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.0.1.tgz#8487057f2b46a7d8a073719e221480b17b610722"
-  integrity sha512-V5kL4LikwHKrK4+gfFS/6c0Rnjn5q1khdcR1P18NtJmkXYgg3xrXiAnjeSD7HKmUanS89nhxZy6ilpasvhbFKg==
+serial-entrepreneur-backend@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.1.0.tgz#ef06561c06407b50155e068f8058816ff7272d28"
+  integrity sha512-UZTiXXMh/FWHbL5MnckdzqbmgDYPjSdm8H4iWWNT1pnPqgYFUsZ2u6aClw9iq++DtOiFy7i8OAc5i9al8mK9SQ==
   dependencies:
     bcrypt "^5.1.0"
-    fetch-lean "^1.0.3"
     jsonwebtoken "^8.5.1"
-    tamed-mailer "^1.1.0"
-    tamed-pg "^1.0.3"
+    tamed-mailer "^1.1.1"
+    tamed-pg "^2.0.0"
     tick-log "^1.1.2"
 
 serve-static@1.15.0:
@@ -982,32 +988,32 @@ strip-ansi@^6.0.1:
   dependencies:
     ansi-regex "^5.0.1"
 
-tamed-mailer@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/tamed-mailer/-/tamed-mailer-1.1.0.tgz#e1b241bdf41e5afcb442b7c777c46a61319fe731"
-  integrity sha512-CanDfCAX1CeQmwR9XnmbpiCVSOoSjh/O8rDBJZHiqgxTRMcyiHjrj3JhFdtjcV+Qw75LJAn9+ws5DsMha7jYiw==
+tamed-mailer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tamed-mailer/-/tamed-mailer-1.1.1.tgz#943e64c718bafe2117f6916fea8c2b531f79879d"
+  integrity sha512-rATW3IB7TOPHftsbE64yCbw8wbs2DcsuNsILLekxWL1Pdn79ueW19p1wT0wZVPYMGUwoGjUJkubKQwunWxh8Bg==
   dependencies:
     "@azure/msal-node" "^1.14.2"
-    fetch-lean "^1.0.3"
+    fetch-lean "^1.0.5"
     nodemailer "^6.8.0"
     tick-log "^1.1.2"
 
-tamed-pg@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/tamed-pg/-/tamed-pg-1.0.3.tgz#bfde673c14936398b25a12164aaba5f42befebb8"
-  integrity sha512-eBgplQCa4pgnUgll5hf4xQr98LVQuLMpjrxEHKOHX1ll4VvomSToBPT25eNQez7i7pHhyxzS/xEgUi6f3XIedA==
+tamed-pg@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tamed-pg/-/tamed-pg-2.0.0.tgz#2e99d8da3c1d4ebeaae5019c251b1741998a98d5"
+  integrity sha512-VBkCysFsVOui2IsHtNqfDlxQjFRWsUuHZCCpUoEu7qfDddn9TmDI1DobdOodAriZec1lcjzwVpMq21VZP+BU6Q==
   dependencies:
     pg "^8.8.0"
     tick-log "^1.1.2"
 
 tar@^6.1.11:
-  version "6.1.11"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
-  integrity sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==
+  version "6.1.13"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.13.tgz#46e22529000f612180601a6fe0680e7da508847b"
+  integrity sha512-jdIBIN6LTIe2jqzay/2vtYLlBHa3JF42ot3h1dW8Q0PaAG4v8rm0cvpVePtau5C6OKXGGcgO9q2AMNSWxiLqKw==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
-    minipass "^3.0.0"
+    minipass "^4.0.0"
     minizlib "^2.1.1"
     mkdirp "^1.0.3"
     yallist "^4.0.0"

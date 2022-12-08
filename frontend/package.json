@@ -1,6 +1,6 @@
 {
 	"name": "serial-entrepreneur-frontend",
-	"version": "1.0.7",
+	"version": "1.1.0",
 	"description": "The frontend functions to handle the serial-entrepreneur functionalities.",
 	"main": "serial-entrepreneur-frontend.js",
 	"repository": "https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/frontend",

@@ -1,10 +1,10 @@
 {
 	"selectUserFromId": "select * from serialentrepreneur.users where id = $1",
 	"selectUser": "select * from serialentrepreneur.users where email = $1",
-	"insertUser": "insert into serialentrepreneur.users (name, email, password) values ($1, $2, $3)",
+	"insertUser": "insert into serialentrepreneur.users (name, middleName, lastName, email, password, birthDate, gender) values ($1, $2, $3, $4, $5, $6, $7)",
 	"deleteUser": "delete from serialentrepreneur.users where email = $1",
-	"updateUserData": "update serialentrepreneur.users set name = $2 where id = $1",
-	"insertUserRegistrations": "insert into serialentrepreneur.user_registrations(confirmation_code, name, email, password) values ($1, $2, $3, $4)",
+	"updateUserData": "update serialentrepreneur.users set name = $2, middleName = $3, lastName = $4, birthDate = $5, gender = $6 where id = $1",
+	"insertUserRegistrations": "insert into serialentrepreneur.user_registrations(confirmation_code, name, middleName, lastName, email, password, birthDate, gender) values ($1, $2, $3, $4, $5, $6, $7, $8)",
 	"selectUserRegistrations": "select * from serialentrepreneur.user_registrations where email = $1 and confirmation_code = $2",
 	"deleteUserRegistrations": "delete from serialentrepreneur.user_registrations where email = $1",
 	"deleteExpiredUserRegistrations": "delete from serialentrepreneur.user_registrations where created_at < now() - interval '1 day'",

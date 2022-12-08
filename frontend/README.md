@@ -47,15 +47,19 @@ These pure JavaScript functions are designed to take the required parameters and
 		const fFail = (props, error) => {
 			// HANDLE YOUR FAIL CODE HERE
 		}
-		await serialEntrepreneurFrontendHandlers.registerUserStep1(name, email, password, fSuccess, fFail);
+		await serialEntrepreneurFrontendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender, fSuccess, fFail);
 		```
 		#### `registerUserStep1` API
 
 		| parameter | description |
 		|-----------|-------------|
-		| name | The name of the user, single field aiming all names combined |
+		| name | The name of the user |
+		| middleName | The middle name of the user |
+		| lastName | The last name / surname of the user |
 		| email | The email that is to be registered |
 		| password | The password that will be used while registering if the email is succesfully confirmed in the next step |
+		| birthDate | The birth date of the user |
+		| gender | The gender of the user |
 		| fSuccess | callback to be called in success case |
 		| fFail | callback to be called in fail case |
 
@@ -248,7 +252,7 @@ These pure JavaScript functions are designed to take the required parameters and
 	const fFail = (props, error) => {
 		// HANDLE YOUR FAIL CODE HERE
 	}
-	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, newMiddleName, newLastName, newBirthDate, newGender, fSuccess, fFail);
 	```
 	#### `updateUserData` API
 
@@ -256,6 +260,10 @@ These pure JavaScript functions are designed to take the required parameters and
 	|-----------|-------------|
 	| token | The token that verifies the user |
 	| newName | The new name to be updated |
+	| newMiddleName | The new middle name to be updated |
+	| newLastName | The new last name to be updated |
+	| newBirthDate | The new birth date to be updated |
+	| newGender | The new gender to be updated |
 	| fSuccess | callback to be called in success case |
 	| fFail | callback to be called in fail case |
 
@@ -285,6 +293,33 @@ These pure JavaScript functions are designed to take the required parameters and
 	| token | The token that verifies the user |
 	| fSuccess | callback to be called in success case |
 	| fFail | callback to be called in fail case |
+
+
+7. Implement the [Get User Data] flow
+
+	You can use following functions in your [User Data] page within the related submit button handler.
+	```javascript
+	const serialEntrepreneurFrontendHandlers = require('serial-entrepreneur-frontend');
+	...
+
+	// in your button's related event handler
+	const fSuccess = (props, retval) => {
+		// HANDLE YOUR SUCCESS CODE HERE
+		console.log(JSON.stringify(retval))
+	}
+	const fFail = (props, error) => {
+		// HANDLE YOUR FAIL CODE HERE
+	}
+	await serialEntrepreneurFrontendHandlers.getUserData(token, fSuccess, fFail);
+	```
+	#### `getUserData` API
+
+	| parameter | description |
+	|-----------|-------------|
+	| token | The token that verifies the user |
+	| fSuccess | callback to be called in success case |
+	| fFail | callback to be called in fail case |
+
 
 ### Integration with Popular Authentication Providers
 

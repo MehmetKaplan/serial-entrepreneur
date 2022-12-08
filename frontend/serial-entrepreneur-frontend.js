@@ -39,7 +39,7 @@ const serialEntrepreneurBackendCall = (method, route, props, successCallback, fa
 
 const testHandler = async (name, email, password, successCallback, failCallback) => { await serialEntrepreneurBackendCall('GET', 'testhandler', { name, email, password }, successCallback, failCallback); }
 
-const registerUserStep1 = async (name, email, password, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'registeruserstep1', { name, email, password }, successCallback, failCallback); }
+const registerUserStep1 = async (name, middleName, lastName, email, password, birthDate, gender, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'registeruserstep1', { name, middleName, lastName, email, password, birthDate, gender }, successCallback, failCallback); }
 
 const registerUserStep2 = async (email, confirmationCode, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'registeruserstep2', { email, confirmationCode }, successCallback, failCallback); }
 
@@ -55,7 +55,9 @@ const resetPasswordStep1 = async (email, successCallback, failCallback) => { awa
 
 const resetPasswordStep2 = async (email, confirmationCode, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'resetpasswordstep2', { email, confirmationCode, newPassword }, successCallback, failCallback); }
 
-const updateUserData = async (token, name, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'updateuserdata', { token, name }, successCallback, failCallback); }
+const updateUserData = async (token, name, middleName, lastName, birthDate, gender, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'updateuserdata', { token, name, middleName, lastName, birthDate, gender }, successCallback, failCallback); }
+
+const getUserData = async (token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'updateuserdata', { token }, successCallback, failCallback); }
 
 module.exports = {
 	init: init,
@@ -69,6 +71,7 @@ module.exports = {
 	resetPasswordStep1: resetPasswordStep1,
 	resetPasswordStep2: resetPasswordStep2,
 	updateUserData: updateUserData,
+	getUserData, getUserData,
 	exportedForTesting: {
 	}
 }
