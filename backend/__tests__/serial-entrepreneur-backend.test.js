@@ -26,9 +26,9 @@ beforeAll(async () => {
 			},
 		},
 		pgKeys: {
-			user: 'wmtapp',
-			password: 'wmtapp.', // coming from database-setup/step00001.sql
-			database: 'wmtdb',
+			user: 'serialentrepreneurapp',
+			password: 'serialentrepreneurapp.', // coming from database-setup/step00001.sql
+			database: 'serialentdb',
 			host: 'localhost',
 			port: 5432,
 		},
