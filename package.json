@@ -1,0 +1,10 @@
+{
+  "name": "serial-entrepreneur",
+  "version": "1.0.0",
+  "description": "The placeholder library for serial-entrepreneur-backend and serial-entrepreneur-frontend",
+  "main": "index.js",
+  "repository": "https://github.com/MehmetKaplan/serial-entrepreneur/",
+  "author": "Mehmet Kaplan",
+  "license": "MIT",
+  "private": false
+}
