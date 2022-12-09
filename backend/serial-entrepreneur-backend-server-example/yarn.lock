@@ -910,10 +910,10 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serial-entrepreneur-backend@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.1.0.tgz#ef06561c06407b50155e068f8058816ff7272d28"
-  integrity sha512-UZTiXXMh/FWHbL5MnckdzqbmgDYPjSdm8H4iWWNT1pnPqgYFUsZ2u6aClw9iq++DtOiFy7i8OAc5i9al8mK9SQ==
+serial-entrepreneur-backend@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-1.2.0.tgz#378c42c5144351393e00548fbdcc95abfdb141e2"
+  integrity sha512-/I+pqvSwPLmDLX3VK7KP/J+25F3S3r/FXlC3dgtd0LlJK5xdUIjH6UX2v3+dqOn6GzYZE/49T5h19/VYw2w3cg==
   dependencies:
     bcrypt "^5.1.0"
     jsonwebtoken "^8.5.1"

@@ -325,12 +325,12 @@ test('Password change', async () => {
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
 	try {
-		await serialEntrepreneurBackendHandlers.changePassword(email, 'wrong-old-password', newPassword);
+		await serialEntrepreneurBackendHandlers.changePassword(response3.payload.token, 'wrong-old-password', newPassword);
 		expect(true).toEqual(false); // should not reach this line
 	} catch (error) {
 		expect(error).toEqual(uiTexts.invalidOldPassword);
 	}
-	let response4 = await serialEntrepreneurBackendHandlers.changePassword(email, password, newPassword);
+	let response4 = await serialEntrepreneurBackendHandlers.changePassword(response3.payload.token, password, newPassword);
 	tickLog.info(`Change password response: ${JSON.stringify(response4)}`);
 	expect(response4).toBeDefined();
 	expect(response4).toEqual(uiTexts.passwordChanged);
@@ -366,10 +366,14 @@ test('Password change - invalid email', async () => {
 	expect(decoded).toBeDefined();
 	expect(decoded.email).toEqual(email);
 	try {
-		await serialEntrepreneurBackendHandlers.changePassword(`${email}-SOME-GARBAGE-DATA`, password, newPassword);
+		tickLog.info(`#############################################`);
+		let garbageJWT = `SOME-GARBAGE-TOKEN`;
+		tickLog.info(`IT IS NORMAL THAT YOU SEE AN ERROR IN BELOW FOR FAILURE OF THE JWT: ${garbageJWT}`);
+		await serialEntrepreneurBackendHandlers.changePassword(garbageJWT, password, newPassword);
 		expect(true).toEqual(false); // should not reach this line
 	} catch (error) {
-		expect(error).toEqual(uiTexts.invalidEmail);
+		tickLog.info(`#############################################`);
+		expect(error).toEqual(uiTexts.unknownError);
 	}
 });
 

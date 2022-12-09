@@ -224,13 +224,13 @@ These pure JavaScript functions are designed to take the required parameters and
 	const fFail = (props, error) => {
 		// HANDLE YOUR FAIL CODE HERE
 	}
-	await serialEntrepreneurFrontendHandlers.changePassword(email, oldPassword, newPassword, fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.changePassword(token, oldPassword, newPassword, fSuccess, fFail);
 	```
 	#### `changePassword` API
 
 	| parameter | description |
 	|-----------|-------------|
-	| email | The email of the user |
+	| token | The valid JWT of the user |
 	| oldPassword | The old password to authenticate the user |
 	| newPassword | The new password to be updated |
 	| fSuccess | callback to be called in success case |

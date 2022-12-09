@@ -49,7 +49,7 @@ const loginUserViaMail = async (email, password, successCallback, failCallback) 
 
 const loginUserViaToken = async (token, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'loginuserviatoken', { token }, successCallback, failCallback); }
 
-const changePassword = async (email, oldPassword, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'changepassword', { email, oldPassword, newPassword }, successCallback, failCallback); }
+const changePassword = async (token, oldPassword, newPassword, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'changepassword', { token, oldPassword, newPassword }, successCallback, failCallback); }
 
 const resetPasswordStep1 = async (email, successCallback, failCallback) => { await serialEntrepreneurBackendCall('POST', 'resetpasswordstep1', { email }, successCallback, failCallback); }
 

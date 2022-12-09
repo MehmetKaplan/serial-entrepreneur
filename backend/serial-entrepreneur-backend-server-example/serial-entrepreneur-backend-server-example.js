@@ -61,7 +61,7 @@ const startServer = async () => {
 	app.post('/removeuser', async (req, res) => { callHandler(req, res, 'removeUser', ['email', 'token']) });
 	app.post('/loginuserviamail', async (req, res) => { callHandler(req, res, 'loginUserViaMail', ['email', 'password']) });
 	app.post('/loginuserviatoken', async (req, res) => { callHandler(req, res, 'loginUserViaToken', ['token']) });
-	app.post('/changepassword', async (req, res) => { callHandler(req, res, 'changePassword', ['email', 'oldPassword', 'newPassword']) });
+	app.post('/changepassword', async (req, res) => { callHandler(req, res, 'changePassword', ['token', 'oldPassword', 'newPassword']) });
 	app.post('/resetpasswordstep1', async (req, res) => { callHandler(req, res, 'resetPasswordStep1', ['email']) });
 	app.post('/resetpasswordstep2', async (req, res) => { callHandler(req, res, 'resetPasswordStep2', ['email', 'confirmationCode', 'newPassword']) });
 	app.post('/updateuserdata', async (req, res) => { callHandler(req, res, 'updateUserData', ['token', 'name', 'middleName', 'lastName', 'birthDate', 'gender']) });

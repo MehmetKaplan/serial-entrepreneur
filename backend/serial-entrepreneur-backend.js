@@ -202,10 +202,11 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 	}
 });
 
-const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(async (resolve, reject) => {
+const changePassword = (p_token, p_oldPassword, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = jwtDecode(p_token).email;
 		let l_retval;
-		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [l_email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
@@ -216,7 +217,7 @@ const changePassword = (p_email, p_oldPassword, p_newPassword) => new Promise(as
 			return reject(uiTexts.invalidOldPassword);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, p_email]);
+		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, l_email]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`);
