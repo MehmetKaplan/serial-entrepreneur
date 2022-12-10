@@ -105,6 +105,7 @@ const startServer = async () => {
 			bcryptKeys: serverParameters.bcryptKeys,
 			emailKeys: serverParameters.emailKeys,
 			pgKeys: serverParameters.pgKeys,
+			applicationName: 'YOUR APPLICATION NAME',
 		}
 	);
 

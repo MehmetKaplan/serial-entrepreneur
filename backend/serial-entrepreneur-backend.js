@@ -22,6 +22,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 		keys.emailKeys = p_params.emailKeys;
 		poolName = await connect(p_params.pgKeys);
 		poolInfoForTests.poolName = poolName;
+		uiTexts.applicationName = p_params?.applicationName ? p_params?.applicationName : uiTexts.applicationName;
 		return resolve(true);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function init failed. Error: ${JSON.stringify(error)}`);
