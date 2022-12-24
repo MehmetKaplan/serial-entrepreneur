@@ -3,27 +3,29 @@
 // Obtain following users from backend jest tests
 let getUserId = 0;
 const testUsers = [
-	{"name":"1670597554562-4","email":"1670597554562-4@yopmail.com","middleName":"1670597554562-4","lastName":"1670597554562-4","password":"1670597554562-4","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxMCwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTRAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NTksImV4cCI6MTY3MzI3NTk1OX0.pZTOo2O53VCeLjO5ZLSIBjbkRDLeluZz0poby5x4f78"},
-	{"name":"1670597554562-5","email":"1670597554562-5@yopmail.com","middleName":"1670597554562-5","lastName":"1670597554562-5","password":"1670597554562-5","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxMSwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTVAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NTksImV4cCI6MTY3MzI3NTk1OX0.qDdpy9CQZ2jqnhW9iPiZ-zknRNlNOiM6Zl03-lj4zIM"},
-	{"name":"1670597554562-6","email":"1670597554562-6@yopmail.com","middleName":"1670597554562-6","lastName":"1670597554562-6","password":"1670597554562-6","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxMiwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTZAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NjAsImV4cCI6MTY3MzI3NTk2MH0.NqJN7lp-RJgGUjJq4nA2JikSrzMywxfdzYBjig9Eju0"},
-	{"name":"1670597554562-7","email":"1670597554562-7@yopmail.com","middleName":"1670597554562-7","lastName":"1670597554562-7","password":"1670597554562-7","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxMywiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTdAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NjEsImV4cCI6MTY3MzI3NTk2MX0.n2qBRE7cVcTcnHGj-KOwwHkErA4Q8eRaUiROj7LzwdE"},
-	{"name":"1670597554562-8","email":"1670597554562-8@yopmail.com","middleName":"1670597554562-8","lastName":"1670597554562-8","password":"1670597554562-8","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxNCwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLThAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NjIsImV4cCI6MTY3MzI3NTk2Mn0.A38EQgoArSpWlPrCHN0CMl_78qGvaGTlVLJQ4kDHFlo"},
-	{"name":"1670597554562-9","email":"1670597554562-9@yopmail.com","middleName":"1670597554562-9","lastName":"1670597554562-9","password":"1670597554562-9","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxNSwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTlAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzA1OTc1NjMsImV4cCI6MTY3MzI3NTk2M30.sn4XTRLm2ub9DjEVzI-pqfx9xdY2cqqfQKTAM3hA1EI"},
-	{"name":"1670597554562-10","email":"1670597554562-10@yopmail.com","middleName":"1670597554562-10","lastName":"1670597554562-10","password":"1670597554562-10","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxNiwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTEwQHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY0LCJleHAiOjE2NzMyNzU5NjR9.1ierd9jxSUoKtd_CVIVmfcf65wEf47w_yo2VDVu0auM"},
-	{"name":"1670597554562-11","email":"1670597554562-11@yopmail.com","middleName":"1670597554562-11","lastName":"1670597554562-11","password":"1670597554562-11","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxNywiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTExQHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY1LCJleHAiOjE2NzMyNzU5NjV9.8H9K8PjeGNQaRBWhkDc4yHB9ln21_dh5QHWLzOKKCiE"},
-	{"name":"1670597554562-12","email":"1670597554562-12@yopmail.com","middleName":"1670597554562-12","lastName":"1670597554562-12","password":"1670597554562-12","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxOCwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTEyQHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY2LCJleHAiOjE2NzMyNzU5NjZ9.-i5Yvwq5IQix8HmsYRGbH6z5P4L2wpdvQzL06mAevg4"},
-	{"name":"1670597554562-13","email":"1670597554562-13@yopmail.com","middleName":"1670597554562-13","lastName":"1670597554562-13","password":"1670597554562-13","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQxOSwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTEzQHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY3LCJleHAiOjE2NzMyNzU5Njd9.HQu24_utpumyoSFX0HtXMi1Aw3IOvCGhgbs6Pgo96go"},
-	{"name":"1670597554562-14","email":"1670597554562-14@yopmail.com","middleName":"1670597554562-14","lastName":"1670597554562-14","password":"1670597554562-14","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyMCwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE0QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY4LCJleHAiOjE2NzMyNzU5Njh9.KrAIhsuJ4pFtNAYW5eTy3_lmREYc6B8XrvQj7W2Aq08"},
-	{"name":"1670597554562-15","email":"1670597554562-15@yopmail.com","middleName":"1670597554562-15","lastName":"1670597554562-15","password":"1670597554562-15","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyMSwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE1QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY4LCJleHAiOjE2NzMyNzU5Njh9.jiCqudzW8k3JOZ4ro1jrGRkpDfYiMQixIrs371MH_Ns"},
-	{"name":"1670597554562-16","email":"1670597554562-16@yopmail.com","middleName":"1670597554562-16","lastName":"1670597554562-16","password":"1670597554562-16","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyMiwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE2QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTY5LCJleHAiOjE2NzMyNzU5Njl9.4gewIoW3IFWXPiSvp1to1vZ31UeP1L5yWZ7JGFmfx7o"},
-	{"name":"1670597554562-17","email":"1670597554562-17@yopmail.com","middleName":"1670597554562-17","lastName":"1670597554562-17","password":"1670597554562-17","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyMywiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE3QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTcwLCJleHAiOjE2NzMyNzU5NzB9.IrHguKBZvQBoYdRx98xjhqw9icI20T6ETSYOU2ecPQA"},
-	{"name":"1670597554562-18","email":"1670597554562-18@yopmail.com","middleName":"1670597554562-18","lastName":"1670597554562-18","password":"1670597554562-18","birthDate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyNCwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE4QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTcxLCJleHAiOjE2NzMyNzU5NzF9.8jJtVqu131Ui7KeqUtPXH8muangr6I3QicLZ3kWeQkQ"},
-	{"name":"1670597554562-19","email":"1670597554562-19@yopmail.com","middleName":"1670597554562-19","lastName":"1670597554562-19","password":"1670597554562-19","birthDate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyNSwiZW1haWwiOiIxNjcwNTk3NTU0NTYyLTE5QHlvcG1haWwuY29tIiwiaWF0IjoxNjcwNTk3NTcyLCJleHAiOjE2NzMyNzU5NzJ9.76RDVuNkqHlV10G-7GyT0oI9s6CrcXd33c9kl_PRTJQ"},
+	{"name":"1671879529957-2","email":"1671879529957-2@yopmail.com","middlename":"1671879529957-2","lastname":"1671879529957-2","password":"1671879529957-2","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxMCwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTJAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzIsImV4cCI6MTY3NDU1NzkzMn0.rLWaoySNVXsJ2Xo6rKfdGE1JCU0ymZ4W2-WakLUJbhQ"},
+	{"name":"1671879529957-3","email":"1671879529957-3@yopmail.com","middlename":"1671879529957-3","lastname":"1671879529957-3","password":"1671879529957-3","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxMSwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTNAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzMsImV4cCI6MTY3NDU1NzkzM30.t1hAxDaktSNu1rV3y4M2qgOdrLdohIslDY7odOrsMwE"},
+	{"name":"1671879529957-4","email":"1671879529957-4@yopmail.com","middlename":"1671879529957-4","lastname":"1671879529957-4","password":"1671879529957-4","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxMiwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTRAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzQsImV4cCI6MTY3NDU1NzkzNH0.2knvvjLTGUIlq-XsUn2N7zp9BYi95nMb66QimAdYqDo"},
+	{"name":"1671879529957-5","email":"1671879529957-5@yopmail.com","middlename":"1671879529957-5","lastname":"1671879529957-5","password":"1671879529957-5","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxMywiZW1haWwiOiIxNjcxODc5NTI5OTU3LTVAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzUsImV4cCI6MTY3NDU1NzkzNX0.FWAY7mRmjeebpBsZPhj_8m9QrztC2rTlboF1CFZzRLk"},
+	{"name":"1671879529957-6","email":"1671879529957-6@yopmail.com","middlename":"1671879529957-6","lastname":"1671879529957-6","password":"1671879529957-6","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxNCwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTZAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzYsImV4cCI6MTY3NDU1NzkzNn0.sG7s9b38HmPAWSU3np5UZN14R3tlBjmgkEQnAip2HaU"},
+	{"name":"1671879529957-7","email":"1671879529957-7@yopmail.com","middlename":"1671879529957-7","lastname":"1671879529957-7","password":"1671879529957-7","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxNSwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTdAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzcsImV4cCI6MTY3NDU1NzkzN30.ohxkgJkyHal6yXMwh9uynFy3eJoCRQ3IJlqV2lO6MOg"},
+	{"name":"1671879529957-8","email":"1671879529957-8@yopmail.com","middlename":"1671879529957-8","lastname":"1671879529957-8","password":"1671879529957-8","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxNiwiZW1haWwiOiIxNjcxODc5NTI5OTU3LThAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzcsImV4cCI6MTY3NDU1NzkzN30.6gEeFfpXjV4D7GTTQeZ5k11Jo2L8EazXu5NtERDcvFw"},
+	{"name":"1671879529957-9","email":"1671879529957-9@yopmail.com","middlename":"1671879529957-9","lastname":"1671879529957-9","password":"1671879529957-9","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxNywiZW1haWwiOiIxNjcxODc5NTI5OTU3LTlAeW9wbWFpbC5jb20iLCJpYXQiOjE2NzE4Nzk1MzgsImV4cCI6MTY3NDU1NzkzOH0.Wr69WOIa8KGZjNjw_zG-qIFbhR7T8k7E9BpJv91Vo9k"},
+	{"name":"1671879529957-10","email":"1671879529957-10@yopmail.com","middlename":"1671879529957-10","lastname":"1671879529957-10","password":"1671879529957-10","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxOCwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTEwQHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTM5LCJleHAiOjE2NzQ1NTc5Mzl9.ertxENNC4jKrGMwGOcgxZrMWmWlBT4maBWaLr8fMHf4"},
+	{"name":"1671879529957-11","email":"1671879529957-11@yopmail.com","middlename":"1671879529957-11","lastname":"1671879529957-11","password":"1671879529957-11","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUxOSwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTExQHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQwLCJleHAiOjE2NzQ1NTc5NDB9.xgzvHSrNy2526ogUwN6n46Y7hGHCII1I9boEr165WPI"},
+	{"name":"1671879529957-12","email":"1671879529957-12@yopmail.com","middlename":"1671879529957-12","lastname":"1671879529957-12","password":"1671879529957-12","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyMCwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTEyQHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQxLCJleHAiOjE2NzQ1NTc5NDF9.DxhTIf1PCrqQYXjvlhRqrepBV_1BF9zXyeOF1TywsAg"},
+	{"name":"1671879529957-13","email":"1671879529957-13@yopmail.com","middlename":"1671879529957-13","lastname":"1671879529957-13","password":"1671879529957-13","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyMSwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTEzQHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQyLCJleHAiOjE2NzQ1NTc5NDJ9.93sSnnJQ2vufsuWVW1Mi-aVBGAquQL0s0SVyMYg1eoM"},
+	{"name":"1671879529957-14","email":"1671879529957-14@yopmail.com","middlename":"1671879529957-14","lastname":"1671879529957-14","password":"1671879529957-14","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyMiwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE0QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQzLCJleHAiOjE2NzQ1NTc5NDN9.DMtwgukcbSoHlPDYxhMlCliJPPLF6QdxKtovxfXSBB8"},
+	{"name":"1671879529957-15","email":"1671879529957-15@yopmail.com","middlename":"1671879529957-15","lastname":"1671879529957-15","password":"1671879529957-15","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyMywiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE1QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQ0LCJleHAiOjE2NzQ1NTc5NDR9.ABvzO5cdnMmGKvUSOS8B9tBtUGOm4ggM-ou_5UBKWnI"},
+	{"name":"1671879529957-16","email":"1671879529957-16@yopmail.com","middlename":"1671879529957-16","lastname":"1671879529957-16","password":"1671879529957-16","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyNCwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE2QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQ1LCJleHAiOjE2NzQ1NTc5NDV9.b6lUI_J8B2dzjNuXApiMBPdJt_ON2AxM2HT__2zeNCg"},
+	{"name":"1671879529957-17","email":"1671879529957-17@yopmail.com","middlename":"1671879529957-17","lastname":"1671879529957-17","password":"1671879529957-17","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyNSwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE3QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQ2LCJleHAiOjE2NzQ1NTc5NDZ9.Opc60sRFQIX6tAVzh5yzOzsk-JFYwXoh7JN8chtkUwQ"},
+	{"name":"1671879529957-18","email":"1671879529957-18@yopmail.com","middlename":"1671879529957-18","lastname":"1671879529957-18","password":"1671879529957-18","birthdate":"12.23.2022","gender":"Female","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyNiwiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE4QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQ2LCJleHAiOjE2NzQ1NTc5NDZ9.fGoa4yxxjV17zohd8KfoWwsc0yvNEb5hcnsrZ7bAcE4"},
+	{"name":"1671879529957-19","email":"1671879529957-19@yopmail.com","middlename":"1671879529957-19","lastname":"1671879529957-19","password":"1671879529957-19","birthdate":"12.23.2021","gender":"Male","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyNywiZW1haWwiOiIxNjcxODc5NTI5OTU3LTE5QHlvcG1haWwuY29tIiwiaWF0IjoxNjcxODc5NTQ3LCJleHAiOjE2NzQ1NTc5NDd9.ijToLA06H1tNaiK7kIbYZVJ8G9pdRWbV0l-f3PbEWmg"},
 ];
 
 
 
-const apiBackend = 'http://development.computatus.com:61976'; // modify this with your backend
+const apiBackend = 'http://development.computatus.com:61981'; // modify this with your backend
 
 const tickLog = require('tick-log');
 const serialEntrepreneurFrontendHandlers = require('../serial-entrepreneur-frontend');
@@ -54,9 +56,9 @@ test('Test registerUserStep1', async () => {
 	let now = Date.now();
 	let email = `${now}@yopmail.com`;
 	let name = `test ${now}`;
-	let middleName = `test ${now}`;
-	let lastName = `test ${now}`;
-	let birthDate = "2012-12-23"
+	let middlename = `test ${now}`;
+	let lastname = `test ${now}`;
+	let birthdate = "2012-12-23"
 	let gender = (now % 2 === 0) ? 'Male' : 'Female';
 	let password = `password-${now}`;
 	const fSuccess = (props, retval) => {
@@ -67,7 +69,7 @@ test('Test registerUserStep1', async () => {
 		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(e_)}`);
 		expect(true).toBe(false);
 	}
-	await serialEntrepreneurFrontendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender, fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender, fSuccess, fFail);
 });
 
 test('Test registerUserStep2 should fail because we don\'t know the confirmation code without checking the email', async () => {
@@ -192,7 +194,7 @@ test('resetPasswordStep2', async () => {
 
 test('updateuserdata', async () => {
 	let userIndex = getUserId;
-	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)} middleName: ${JSON.stringify(testUsers[userIndex].middleName)} lastName: ${JSON.stringify(testUsers[userIndex].lastName)} birthDate: ${JSON.stringify(testUsers[userIndex].birthDate)} gender: ${JSON.stringify(testUsers[userIndex].gender)}`);
+	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)} middlename: ${JSON.stringify(testUsers[userIndex].middlename)} lastname: ${JSON.stringify(testUsers[userIndex].lastname)} birthdate: ${JSON.stringify(testUsers[userIndex].birthdate)} gender: ${JSON.stringify(testUsers[userIndex].gender)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
 		expect(retval).toMatchObject({"result":"OK"})
@@ -201,12 +203,12 @@ test('updateuserdata', async () => {
 		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
 		expect(true).toBe(false);
 	}
-	await serialEntrepreneurFrontendHandlers.updateUserData(testUsers[userIndex].token, "SOME NEW NAME", "SOME NEW MIDDLENAME", "SOME NEW LASTNAME", "2022-12-20", "new-gender", fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.updateUserData(testUsers[userIndex].token, "SOME NEW NAME", "SOME NEW middlename", "SOME NEW lastname", "2022-12-20", "new-gender", fSuccess, fFail);
 });
 
 test('getuserdata', async () => {
 	let userIndex = ++getUserId;
-	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)} middleName: ${JSON.stringify(testUsers[userIndex].middleName)} lastName: ${JSON.stringify(testUsers[userIndex].lastName)} birthDate: ${JSON.stringify(testUsers[userIndex].birthDate)} gender: ${JSON.stringify(testUsers[userIndex].gender)}`);
+	tickLog.info(`updateuserdata: index ${userIndex} name: ${JSON.stringify(testUsers[userIndex].name)} middlename: ${JSON.stringify(testUsers[userIndex].middlename)} lastname: ${JSON.stringify(testUsers[userIndex].lastname)} birthdate: ${JSON.stringify(testUsers[userIndex].birthdate)} gender: ${JSON.stringify(testUsers[userIndex].gender)}`);
 	const fSuccess = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);
 		expect(retval).toMatchObject({"result":"OK"})
@@ -215,7 +217,7 @@ test('getuserdata', async () => {
 		tickLog.error(`fFail: ${JSON.stringify(props)} ${JSON.stringify(error)}`);
 		expect(true).toBe(false);
 	}
-	await serialEntrepreneurFrontendHandlers.updateUserData(testUsers[userIndex].token, "SOME NEW NAME", "SOME NEW MIDDLENAME", "SOME NEW LASTNAME", "2022-12-20", "new-gender", fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.updateUserData(testUsers[userIndex].token, "SOME NEW NAME", "SOME NEW middlename", "SOME NEW lastname", "2022-12-20", "new-gender", fSuccess, fFail);
 
 	const fSuccess2 = (props, retval) => {
 		tickLog.info(`fSuccess: ${JSON.stringify(props)} ${JSON.stringify(retval)}`);

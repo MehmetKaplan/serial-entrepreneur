@@ -49,16 +49,16 @@ test('Get confirmation code', async () => {
 
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
 
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
-	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response2}`);
 	expect(response1.length).toEqual(7);
 	expect(response2.length).toEqual(7);
@@ -68,15 +68,15 @@ test('Get confirmation code', async () => {
 test('Register user', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1a}`);
-	let response1b = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1b = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1b}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1a);
 	expect(response2).toBeDefined();
@@ -91,13 +91,13 @@ test('Register user', async () => {
 test('Invalid confirmation code', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1a}`);
 	let confirmationCode = `${response1a}-SOME-GARBAGE-DATA`;
 	expect(serialEntrepreneurBackendHandlers.registerUserStep2(email, confirmationCode)).rejects.toEqual(uiTexts.invalidConfirmationCode);
@@ -109,17 +109,17 @@ test('Invalid confirmation code', async () => {
 test('Email already exists', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1a = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1a}`);
 	let response2a = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1a);
 	try {
-		await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+		await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	} catch (error) {
 		expect(error).toEqual(uiTexts.emailAlreadyExists);
 	}
@@ -143,13 +143,13 @@ test('JWT functions', async () => {
 test('Successfull login user', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -165,14 +165,14 @@ test('Successfull login user', async () => {
 test('Invalid password', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
 	let wrongPassword = `${now}-SOME-GARBAGE-DATA`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	try {
@@ -186,14 +186,14 @@ test('Invalid password', async () => {
 test('Invalid email', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
 	let wrongEmail = `${now}-SOME-GARBAGE-DATA`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	try {
@@ -208,13 +208,13 @@ test('Invalid email', async () => {
 test('Successfull login user via JWT', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -251,13 +251,13 @@ test('Invalid JWT', async () => {
 test('Remove user', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -277,13 +277,13 @@ test('Remove user', async () => {
 test('Remove user - invalid email', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -306,14 +306,14 @@ test('Remove user - invalid email', async () => {
 test('Password change', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
 	let newPassword = `${now}-NEW`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -347,14 +347,14 @@ test('Password change', async () => {
 test('Password change - invalid email', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
 	let newPassword = `${now}-NEW`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -380,14 +380,14 @@ test('Password change - invalid email', async () => {
 test('Password reset', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
 	let newPassword = `${now}-NEW`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -419,13 +419,13 @@ test('Password reset', async () => {
 test('Update user data', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -462,13 +462,13 @@ test('Update user data', async () => {
 test('Get user data', async () => {
 	let now = Date.now();
 	let name = `${now}`;
-	let middleName = `${now}`;
-	let lastName = `${now}`;
+	let middlename = `${now}`;
+	let lastname = `${now}`;
 	let email = `${now}@yopmail.com`;
 	let password = `${now}`;
-	let birthDate = `12.23.1912`; // Format is DD.MM.YYYY
+	let birthdate = `12.23.1912`; // Format is DD.MM.YYYY
 	let gender = `${now % 2 === 0 ? 'female' : 'male'}`;
-	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender);
+	let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender);
 	tickLog.info(`Confirmation code: ${response1}`);
 	let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(email, response1);
 	let response3 = await serialEntrepreneurBackendHandlers.loginUserViaMail(email, password);
@@ -515,16 +515,16 @@ test('Prepare users for frontend tests', async () => {
 	let now = Date.now();
 	let testUserCount = 20
 	let names = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
-	let middleNames = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
-	let lastNames = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
+	let middlenames = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
+	let lastnames = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
 	let emails = [...Array(testUserCount).keys()].map(v => `${now}-${v}@yopmail.com`);
 	let passwords = [...Array(testUserCount).keys()].map(v => `${now}-${v}`);
-	let birthDates = [...Array(testUserCount).keys()].map((v, i) => `${i % 2 === 0 ? '12.23.2022' : '12.23.2021'}`);
+	let birthdates = [...Array(testUserCount).keys()].map((v, i) => `${i % 2 === 0 ? '12.23.2022' : '12.23.2021'}`);
 	let genders = [...Array(testUserCount).keys()].map((v, i) => `${i % 2 === 0 ? 'Female' : 'Male'}`);
 
 	let outputText = '\FRONTEND TEST USERS';
 	for (let i = 0; i < names.length; i++) {
-		let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(names[i], middleNames[i], lastNames[i], emails[i], passwords[i], birthDates[i], genders[i]);
+		let response1 = await serialEntrepreneurBackendHandlers.registerUserStep1(names[i], middlenames[i], lastnames[i], emails[i], passwords[i], birthdates[i], genders[i]);
 		let response2 = await serialEntrepreneurBackendHandlers.registerUserStep2(emails[i], response1);
 		let l_decodedToken = serialEntrepreneurBackendHandlers.exportedForTesting.jwtDecode(response2);
 		expect(l_decodedToken).toHaveProperty("userId");
@@ -535,10 +535,10 @@ test('Prepare users for frontend tests', async () => {
 		let l_curUserData = {
 			name: names[i],
 			email: emails[i],
-			middleName: middleNames[i],
-			lastName: lastNames[i],			
+			middlename: middlenames[i],
+			lastname: lastnames[i],			
 			password: passwords[i],
-			birthDate: birthDates[i],
+			birthdate: birthdates[i],
 			gender: genders[i],
 			token: response2,
 		}

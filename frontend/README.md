@@ -47,18 +47,18 @@ These pure JavaScript functions are designed to take the required parameters and
 		const fFail = (props, error) => {
 			// HANDLE YOUR FAIL CODE HERE
 		}
-		await serialEntrepreneurFrontendHandlers.registerUserStep1(name, middleName, lastName, email, password, birthDate, gender, fSuccess, fFail);
+		await serialEntrepreneurFrontendHandlers.registerUserStep1(name, middlename, lastname, email, password, birthdate, gender, fSuccess, fFail);
 		```
 		#### `registerUserStep1` API
 
 		| parameter | description |
 		|-----------|-------------|
 		| name | The name of the user |
-		| middleName | The middle name of the user |
-		| lastName | The last name / surname of the user |
+		| middlename | The middle name of the user |
+		| lastname | The last name / surname of the user |
 		| email | The email that is to be registered |
 		| password | The password that will be used while registering if the email is succesfully confirmed in the next step |
-		| birthDate | The birth date of the user |
+		| birthdate | The birth date of the user |
 		| gender | The gender of the user |
 		| fSuccess | callback to be called in success case |
 		| fFail | callback to be called in fail case |
@@ -252,7 +252,7 @@ These pure JavaScript functions are designed to take the required parameters and
 	const fFail = (props, error) => {
 		// HANDLE YOUR FAIL CODE HERE
 	}
-	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, newMiddleName, newLastName, newBirthDate, newGender, fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, newmiddlename, newlastname, newbirthdate, newGender, fSuccess, fFail);
 	```
 	#### `updateUserData` API
 
@@ -260,9 +260,9 @@ These pure JavaScript functions are designed to take the required parameters and
 	|-----------|-------------|
 	| token | The token that verifies the user |
 	| newName | The new name to be updated |
-	| newMiddleName | The new middle name to be updated |
-	| newLastName | The new last name to be updated |
-	| newBirthDate | The new birth date to be updated |
+	| newmiddlename | The new middle name to be updated |
+	| newlastname | The new last name to be updated |
+	| newbirthdate | The new birth date to be updated |
 	| newGender | The new gender to be updated |
 	| fSuccess | callback to be called in success case |
 	| fFail | callback to be called in fail case |

@@ -25,5 +25,5 @@ module.exports = {
 		keyPath: undefined, // modify this if https is to be used
 		certPath: undefined, // modify this if https is to be used
 	},
-	port: process.env.PORT || 3000
+	port: process.env.SEB_PORT || 3000
 }
