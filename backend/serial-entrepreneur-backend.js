@@ -25,7 +25,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 		uiTexts.applicationName = p_params?.applicationName ? p_params?.applicationName : uiTexts.applicationName;
 		return resolve(true);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function init failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function init failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -33,7 +33,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 /* istanbul ignore next */
 const testHandler = (name, email, password) => new Promise(async (resolve, reject) => {
 	try {
-		tickLog.success(`testHandler: name: ${name}, email: ${email}, password: ${password}`);
+		tickLog.success(`testHandler: name: ${name}, email: ${email}, password: ${password}`, true);
 		return resolve();
 	} catch (error) {
 		return reject(error);
@@ -45,7 +45,7 @@ const jwtDecode = (p_token) => {
 		let decoded = jwt.verify(p_token, keys.jwtKeys.secret);
 		return decoded;
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function jwtDecode failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function jwtDecode failed. Error: ${JSON.stringify(error)}`, true);
 		return undefined;
 	}
 };
@@ -55,7 +55,7 @@ const jwtEncode = (p_data) => {
 		let newToken = jwt.sign(p_data, keys.jwtKeys.secret, { expiresIn: keys.jwtKeys.jwt_expiresIn });
 		return newToken;
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function jwtEncode failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function jwtEncode failed. Error: ${JSON.stringify(error)}`, true);
 		return undefined;
 	}
 };
@@ -101,7 +101,7 @@ const registerUserStep1 = (p_name, p_middlename, p_lastname, p_email, p_password
 		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials, p_email, l_subject, l_mailBody, 'html');
 		return resolve(l_confirmationCode);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function registerUserStep1 failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function registerUserStep1 failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -129,7 +129,7 @@ const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (re
 		let l_token = generateUserToken(l_insertedUsersRow.rows[0].id, p_email);
 		return resolve(l_token);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function registerUserStep2 failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function registerUserStep2 failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -149,7 +149,7 @@ const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => 
 		await runSQL(poolName, sqls.deleteUser, [p_email]);
 		return resolve(uiTexts.userRemoved);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function removeUser failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function removeUser failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -174,7 +174,7 @@ const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, re
 		}
 		return resolve(l_retval2);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function mailLogin failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function mailLogin failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -198,7 +198,7 @@ const loginUserViaToken = (p_token) => new Promise(async (resolve, reject) => {
 		}
 		return resolve(l_retval2);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function tokenLogin failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function tokenLogin failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -221,7 +221,7 @@ const changePassword = (p_token, p_oldPassword, p_newPassword) => new Promise(as
 		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, l_email]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function changePassword failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -247,7 +247,7 @@ const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 			p_email, l_subject, l_mailBody, 'html');
 		return resolve(l_confirmationCode);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -271,7 +271,7 @@ const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new P
 		await runSQL(poolName, sqls.deleteUserPasswordReset, [p_email, p_confirmationCode]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -291,7 +291,7 @@ const updateUserData = (p_token, p_name, p_middlename, p_lastname, p_birthdate, 
 		await runSQL(poolName, sqls.updateUserData, [l_decodedToken.userId, p_name, p_middlename, p_lastname, p_birthdate, p_gender]);
 		return resolve(uiTexts.userDataUpdated);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function updateUserData failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function updateUserData failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -313,7 +313,7 @@ const getUserData = (p_token) => new Promise(async (resolve, reject) => {
 			rows: [l_retval.rows[0]] // assure only 1 row is returned
 		});
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function getUserData failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function getUserData failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
@@ -334,7 +334,7 @@ const ssoBridgeViaEmail = (p_email) => new Promise(async (resolve, reject) => {
 		}
 		return resolve(l_retval2);
 	} catch (error) /* istanbul ignore next */ {
-		tickLog.error(`Function ssoBridgeViaEmail failed. Error: ${JSON.stringify(error)}`);
+		tickLog.error(`Function ssoBridgeViaEmail failed. Error: ${JSON.stringify(error)}`, true);
 		return reject(uiTexts.unknownError);
 	}
 });
