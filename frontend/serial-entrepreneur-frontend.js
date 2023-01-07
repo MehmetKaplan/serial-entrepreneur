@@ -11,7 +11,7 @@ const init = (p_params) => new Promise(async (resolve, reject) => {
 		debugMode = p_params?.debugMode;
 		return resolve(true);
 	} catch (error) /* istanbul ignore next */ {
-		return reject("Unknwon error");
+		return reject("Unknown error");
 	}
 });
 
