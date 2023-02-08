@@ -6,18 +6,6 @@
 -- | |___| |  __/ (_| | |  | | | | | (_| |  / ___ \| | |  __/ (_| |
 --  \____|_|\___|\__,_|_|  |_|_| |_|\__, | /_/   \_\_|  \___|\__,_|
 --                                  |___/                          
-revoke all on serialentrepreneur.subscription_payments
-from
-	serialentrepreneurapp;
-
-drop table serialentrepreneur.subscription_payments;
-
-revoke all on serialentrepreneur.subscriptions
-from
-	serialentrepreneurapp;
-
-drop table serialentrepreneur.subscriptions;
-
 revoke all on serialentrepreneur.user_password_reset
 from
 	serialentrepreneurapp;
