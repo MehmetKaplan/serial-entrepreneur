@@ -39,17 +39,17 @@ local   all             serialentrepreneurapp                   scram-sha-256
 
 Serial Entrepreneur operates on a DB named `serialentdb`. This was generated in the previous step. The schema under this DB is named `serialentrepreneur`. To generate the schema and the objects within it run following files to generate your DB structure.
 
-#### (OPTIONAL-CLEAN SCHEMA) Remove the objects in the shema and the schema itself
+#### (OPTIONAL-CLEAN SCHEMA) Remove the objects in the schema and the schema itself
 
 Connect to your database like **DANGEROUS, DO THIS STEP IF NEEDED, CONSCIOUSLY**
 ```bash
 sudo -u postgres psql
 ```
-and copy-paste [this file content](./step00000.sql).
+and copy-paste [this file content](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00000.sql).
 
 #### Generate the objects
 
-Check the [the ./step00001.sql file content](./step00001.sql) and observe below line. You **should** modify this line and change the password and save it to a safe place. 
+Check the [the ./step00001.sql file content](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00001.sql) and observe below line. You **should** modify this line and change the password and save it to a safe place. 
 
 ```sql
 create user serialentrepreneurapp encrypted password 'serialentrepreneurapp.';
@@ -61,7 +61,9 @@ Connect to your database like
 ```bash
 sudo -u postgres psql
 ```
-and copy-paste [the ./step00001.sql file content](./step00001.sql).
+and copy-paste the contents of the following files:
+-  [step00001.sql](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00001.sql)
+-  [step00002_from_v1.2.5](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00002_from_v1.2.5.sql)
 
 And finally restart the PostgreSQL instance so that the connection method becomes effective.
 
@@ -71,7 +73,7 @@ sudo service postgresql restart
 
 #### Test the connection
 
-In order to verify if everything is OK up to this point we can use the below script. For this script username and password are coming from the previous step, the [./step00001.sql file content](./step00001.sql), as stated in the prebious section. The `psql` command should ask you the password and you'll need to provide the password coming from previous step.
+In order to verify if everything is OK up to this point we can use the below script. For this script username and password are coming from the previous step, the [./step00001.sql file content](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00001.sql), as stated in the previous section. The `psql` command should ask you the password and you'll need to provide the password coming from previous step.
 
 ```bash
 psql -U serialentrepreneurapp -d serialentdb <<EOF

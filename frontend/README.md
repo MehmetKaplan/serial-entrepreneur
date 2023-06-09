@@ -252,7 +252,7 @@ These pure JavaScript functions are designed to take the required parameters and
 	const fFail = (props, error) => {
 		// HANDLE YOUR FAIL CODE HERE
 	}
-	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, newmiddlename, newlastname, newbirthdate, newGender, fSuccess, fFail);
+	await serialEntrepreneurFrontendHandlers.updateUserData(token, newName, newMiddleName, newLastName, newBirthdate, newGender, fSuccess, fFail);
 	```
 	#### `updateUserData` API
 
@@ -260,16 +260,16 @@ These pure JavaScript functions are designed to take the required parameters and
 	|-----------|-------------|
 	| token | The token that verifies the user |
 	| newName | The new name to be updated |
-	| newmiddlename | The new middle name to be updated |
-	| newlastname | The new last name to be updated |
-	| newbirthdate | The new birth date to be updated |
+	| newMiddleName | The new middle name to be updated |
+	| newLastName | The new last name to be updated |
+	| newBirthdate | The new birth date to be updated |
 	| newGender | The new gender to be updated |
 	| fSuccess | callback to be called in success case |
 	| fFail | callback to be called in fail case |
 
 7. Implement the [Remove User] flow
 
-	In order to comply with some of the data privacy laws, we need to provide a method for users to completely remove their data. For this purpose we provide the user removing functionality.
+	In order to comply with some of the data privacy laws, we need to provide a method for users to completely remove their data. For this purpose we provide the user removing functionality. Note that this functionality removes the user from database and place them to the table shown in [step00002_from_v1.2.5.sql](https://github.com/MehmetKaplan/serial-entrepreneur/blob/master/database-setup/step00002_from_v1.2.5.sql). We consciously leave the data in this table. If you want to completely remove, simply delete the rows in this table so that the data is to be deleted irreversibly.
 
 	You can use following functions in your [Remove User] page within the related submit button handler.
 	```javascript

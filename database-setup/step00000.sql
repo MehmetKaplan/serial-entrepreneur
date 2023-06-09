@@ -6,6 +6,13 @@
 -- | |___| |  __/ (_| | |  | | | | | (_| |  / ___ \| | |  __/ (_| |
 --  \____|_|\___|\__,_|_|  |_|_| |_|\__, | /_/   \_\_|  \___|\__,_|
 --                                  |___/                          
+
+revoke all on serialentrepreneur.removed_users
+from
+	serialentrepreneurapp;
+
+drop table serialentrepreneur.removed_users; -- comes after v1.2.4
+
 revoke all on serialentrepreneur.user_password_reset
 from
 	serialentrepreneurapp;

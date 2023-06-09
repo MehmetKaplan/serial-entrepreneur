@@ -3,3 +3,6 @@ node_modules
 coverage
 .vscode/settings.json
 deploy_serial-entrepreneur-backend-server-example_exluded_from_git.sh
+ecosystem.config.js
+deploy-to-test.sh
+reset-db.sh

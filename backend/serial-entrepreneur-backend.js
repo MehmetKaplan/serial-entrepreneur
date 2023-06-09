@@ -144,10 +144,12 @@ const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => 
 		};
 		let l_retval;
 		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
-		if (l_retval.rows.length === 0) {
+		if (l_retval.rows.length !== 1) {
 			return reject(uiTexts.invalidEmail);
 		};
-		await runSQL(poolName, sqls.deleteUser, [p_email]);
+		const user = l_retval.rows[0];
+		await runSQL(poolName, sqls.insertRemovedUser, [user.id, user]);
+		await runSQL(poolName, sqls.removeUser, [user.email]);
 		return resolve(uiTexts.userRemoved);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function removeUser failed. Error: ${JSON.stringify(error)}`, true);

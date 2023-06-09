@@ -3,4 +3,6 @@ keys
 backend
 frontend
 node_modules
-
+ecosystem.config.js
+deploy-to-test.sh
+reset-db.sh

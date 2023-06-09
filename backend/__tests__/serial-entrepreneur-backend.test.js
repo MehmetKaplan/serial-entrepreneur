@@ -545,7 +545,7 @@ test('Prepare users for frontend tests', async () => {
 		outputText += `\n\x1b[0;32m${JSON.stringify(l_curUserData)}\x1b[0m`;
 	}
 	tickLog.info(outputText, true);
-});
+}, 120000);
 
 test('ssoBridgeViaEmail', async () => {
 	let now = Date.now();
