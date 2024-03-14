@@ -86,20 +86,21 @@ const generateConfirmationCode = () => {
 
 const registerUserStep1 = (p_name, p_middlename, p_lastname, p_email, p_password, p_birthdate, p_gender) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_retval;
-		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [l_email]);
 		if (l_retval.rows.length > 0) {
 			return reject(uiTexts.emailAlreadyExists);
 		};
 		let l_confirmationCode = generateConfirmationCode();
 		let l_hashedPassword = await hashPassword(p_password);
-		await runSQL(poolName, sqls.insertUserRegistrations, [l_confirmationCode, p_name, p_middlename, p_lastname, p_email, l_hashedPassword, p_birthdate, p_gender]);
+		await runSQL(poolName, sqls.insertUserRegistrations, [l_confirmationCode, p_name, p_middlename, p_lastname, l_email, l_hashedPassword, p_birthdate, p_gender]);
 		let l_mailBody = uiTexts.confirmationCodeMailContent
 			.replace(/\{0\}/g, p_name)
 			.replace(/\{1\}/g, uiTexts.applicationName)
 			.replace(/\{2\}/g, l_confirmationCode);
 		let l_subject = uiTexts.confirmationCodeMailSubject.replace(/\{0\}/g, uiTexts.applicationName);
-		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials, p_email, l_subject, l_mailBody, 'html');
+		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials, l_email, l_subject, l_mailBody, 'html');
 		return resolve(l_confirmationCode);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function registerUserStep1 failed. Error: ${JSON.stringify(error)}`, true);
@@ -108,9 +109,10 @@ const registerUserStep1 = (p_name, p_middlename, p_lastname, p_email, p_password
 });
 
 const generateUserToken = (p_userid, p_email) => {
+	let l_email = p_email.toLowerCase();
 	let l_payload = {
 		userId: p_userid,
-		email: p_email
+		email: l_email
 	};
 	let l_token = jwtEncode(l_payload);
 	return l_token;
@@ -118,16 +120,17 @@ const generateUserToken = (p_userid, p_email) => {
 
 const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_retval;
-		l_retval = await runSQL(poolName, sqls.selectUserRegistrations, [p_email, p_confirmationCode]);
+		l_retval = await runSQL(poolName, sqls.selectUserRegistrations, [l_email, p_confirmationCode]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
-		await runSQL(poolName, sqls.insertUser, [l_retval.rows[0].name, l_retval.rows[0].middlename, l_retval.rows[0].lastname, p_email, l_retval.rows[0].password, l_retval.rows[0].birthdate, l_retval.rows[0].gender]);
-		await runSQL(poolName, sqls.deleteUserRegistrations, [p_email]);
+		await runSQL(poolName, sqls.insertUser, [l_retval.rows[0].name, l_retval.rows[0].middlename, l_retval.rows[0].lastname, l_email, l_retval.rows[0].password, l_retval.rows[0].birthdate, l_retval.rows[0].gender]);
+		await runSQL(poolName, sqls.deleteUserRegistrations, [l_email]);
 		runSQL(poolName, sqls.deleteExpiredUserRegistrations, []);
-		let l_insertedUsersRow = await runSQL(poolName, sqls.selectUser, [p_email]);
-		let l_token = generateUserToken(l_insertedUsersRow.rows[0].id, p_email);
+		let l_insertedUsersRow = await runSQL(poolName, sqls.selectUser, [l_email]);
+		let l_token = generateUserToken(l_insertedUsersRow.rows[0].id, l_email);
 		return resolve(l_token);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function registerUserStep2 failed. Error: ${JSON.stringify(error)}`, true);
@@ -137,13 +140,14 @@ const registerUserStep2 = (p_email, p_confirmationCode) => new Promise(async (re
 
 const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_decoded = jwtDecode(p_token);
 		/* istanbul ignore if */
 		if (!(l_decoded.email === l_decoded.email)) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_retval;
-		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [l_email]);
 		if (l_retval.rows.length !== 1) {
 			return reject(uiTexts.invalidEmail);
 		};
@@ -159,8 +163,9 @@ const removeUser = (p_email, p_token) => new Promise(async (resolve, reject) => 
 
 const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_retval;
-		l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_retval = await runSQL(poolName, sqls.selectUser, [l_email]);
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.invalidEmailOrPassword);
 		};
@@ -169,7 +174,7 @@ const loginUserViaMail = (p_email, p_password) => new Promise(async (resolve, re
 		if (!l_passwordMatch) {
 			return reject(uiTexts.invalidEmailOrPassword);
 		};
-		let l_token = generateUserToken(l_retval.rows[0].id, p_email);
+		let l_token = generateUserToken(l_retval.rows[0].id, l_email);
 		let l_retval2 = {
 			payload: {
 				token: l_token
@@ -231,14 +236,15 @@ const changePassword = (p_token, p_oldPassword, p_newPassword) => new Promise(as
 
 const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_user;
-		l_user = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_user = await runSQL(poolName, sqls.selectUser, [l_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_confirmationCode = generateConfirmationCode();
-		await runSQL(poolName, sqls.insertUserPasswordReset, [p_email, l_confirmationCode]);
+		await runSQL(poolName, sqls.insertUserPasswordReset, [l_email, l_confirmationCode]);
 		await runSQL(poolName, sqls.deleteExpiredUserPasswordResets, []);
 		let l_subject = uiTexts.resetPasswordMailSubject
 			.replace(/\{0\}/g, l_user.rows[0].name);
@@ -247,7 +253,7 @@ const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 			.replace(/\{1\}/g, uiTexts.applicationName)
 			.replace(/\{2\}/g, l_confirmationCode);
 		await tamedMailer(keys.emailKeys.use, keys.emailKeys.credentials,
-			p_email, l_subject, l_mailBody, 'html');
+			l_email, l_subject, l_mailBody, 'html');
 		return resolve(l_confirmationCode);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`, true);
@@ -257,21 +263,22 @@ const resetPasswordStep1 = (p_email) => new Promise(async (resolve, reject) => {
 
 const resetPasswordStep2 = (p_email, p_confirmationCode, p_newPassword) => new Promise(async (resolve, reject) => {
 	try {
+		let l_email = p_email.toLowerCase();
 		let l_user;
-		l_user = await runSQL(poolName, sqls.selectUser, [p_email]);
+		l_user = await runSQL(poolName, sqls.selectUser, [l_email]);
 		/* istanbul ignore if */
 		if (l_user.rows.length === 0) {
 			return reject(uiTexts.invalidEmail);
 		};
 		let l_passwordReset;
-		l_passwordReset = await runSQL(poolName, sqls.selectUserPasswordReset, [p_email, p_confirmationCode]);
+		l_passwordReset = await runSQL(poolName, sqls.selectUserPasswordReset, [l_email, p_confirmationCode]);
 		/* istanbul ignore if */
 		if (l_passwordReset.rows.length === 0) {
 			return reject(uiTexts.invalidConfirmationCode);
 		};
 		let l_newHashedPassword = await bcrypt.hash(p_newPassword, 10);
-		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, p_email]);
-		await runSQL(poolName, sqls.deleteUserPasswordReset, [p_email, p_confirmationCode]);
+		await runSQL(poolName, sqls.updateUserPassword, [l_newHashedPassword, l_email]);
+		await runSQL(poolName, sqls.deleteUserPasswordReset, [l_email, p_confirmationCode]);
 		return resolve(uiTexts.passwordChanged);
 	} catch (error) /* istanbul ignore next */ {
 		tickLog.error(`Function resetPassword failed. Error: ${JSON.stringify(error)}`, true);
@@ -324,12 +331,13 @@ const getUserData = (p_token) => new Promise(async (resolve, reject) => {
 
 const ssoBridgeViaEmail = (p_email) => new Promise(async (resolve, reject) => {
 	try {
-		let l_retval = await runSQL(poolName, sqls.selectUser, [p_email]);
+		let l_email = p_email.toLowerCase();
+		let l_retval = await runSQL(poolName, sqls.selectUser, [l_email]);
 		/* istanbul ignore if */
 		if (l_retval.rows.length === 0) {
 			return reject(uiTexts.unknownUser);
 		};
-		let l_token = generateUserToken(l_retval.rows[0].id, p_email);
+		let l_token = generateUserToken(l_retval.rows[0].id, l_email);
 		let l_retval2 = {
 			payload: {
 				token: l_token

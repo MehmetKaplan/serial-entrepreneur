@@ -664,9 +664,9 @@ node-fetch@^2.6.7:
     whatwg-url "^5.0.0"
 
 nodemailer@^6.8.0:
-  version "6.9.11"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.11.tgz#900703bd6dc62855d9cea962acf261926841f825"
-  integrity sha512-UiAkgiERuG94kl/3bKfE8o10epvDnl0vokNEtZDPTq9BWzIl6EFT9336SbIT4oaTBD8NmmUTLsQyXHV82eXSWg==
+  version "6.9.12"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.12.tgz#48560eaf3575f8b0215eb38a45ca9025ffad2314"
+  integrity sha512-pnLo7g37Br3jXbF0bl5DekBJihm2q+3bB3l2o/B060sWmb5l+VqeScAQCBqaQ+5ezRZFzW5SciZNGdRDEbq89w==
 
 nopt@^5.0.0:
   version "5.0.0"
@@ -931,10 +931,10 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serial-entrepreneur-backend@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-2.0.0.tgz#af0bc361eac3c4410d53623816d888e7e8f876dd"
-  integrity sha512-NipaDcrokLZaYBhTb0VQJDNwoWxIfcq4JtfubrF52IfSX8D1SZEGVouv2X4DRYUJmN5XEj3MKMcLvAG1HJHCYw==
+serial-entrepreneur-backend@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/serial-entrepreneur-backend/-/serial-entrepreneur-backend-2.0.1.tgz#55b91e8f4166170745ab5ab88689eb8f7eefdaf3"
+  integrity sha512-U5KkwIRPJ5++SLD68uLp8IAbpGrZNWGj+Fm5MDVY8BsCxk/mUZh+zqdwcXDBLs+qJPFPNjjj1RuEis6NAdxnRw==
   dependencies:
     bcrypt "^5.1.0"
     jsonwebtoken "^8.5.1"
