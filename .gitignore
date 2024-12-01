@@ -5,4 +5,6 @@ coverage
 deploy_serial-entrepreneur-backend-server-example_exluded_from_git.sh
 ecosystem.config.js
 deploy-to-test.sh
+pre-process.sh
+post-process.sh
 reset-db.sh
